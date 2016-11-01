@@ -1,0 +1,111 @@
+<section>
+	<header class="text-center">
+		<h1>
+			<span class="fa fa-edit"></span> ระบบข้อสอบออนไลน์
+		</h1>
+		<p class="header-title">
+			| <i class="fa fa-object-group"></i> ข้อมูลรายวิชา |
+		</p>
+	</header>
+	<br>
+
+	<!-- List of data -->
+	<div class="panel panel-default list-of-data" *ngIf="manageTypes == 'list'">
+		<div class="panel-heading">
+			<div class="pull-right">
+				<a class="btn btn-primary" [routerLink]="['/', URL.examination, URL.examination_types, URL.create]">
+					<i class="fa fa-plus"></i> เพิ่มชนิดรายวิชาใหม่
+				</a>
+			</div>
+			<div class="title">
+				<span class="fa fa-list"></span> แสดงรายการข้อมูลรายวิชา
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive animation">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>ชื่อรายวิชา</th>
+							<th>รายละเอียด</th>
+							<th>วันที่</th>
+							<th>ข้อสอบ</th>
+							<th>จัดการข้อมูล</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of Collection">
+							<td>{{item.types_name}}</td>
+							<td>{{item.types_detail | string_null}}</td>
+							<td>{{item.types_updated}}</td>
+							<td>
+								<a [routerLink]="['/', URL.examination, URL.examinations, item.types_id]" class="btn btn-sm btn-warning">
+									<i class="fa fa-files-o"></i> เพิ่มข้อสอบวิชานี้
+								</a>
+							</td>
+							<td>
+								<a [routerLink]="['/', URL.examination, URL.examination_types, item.types_id]" class="btn btn-sm btn-primary">
+									<i class="fa fa-edit"></i>
+								</a>
+								<a (click)="onDelete(item)" class="btn btn-sm btn-danger">
+									<i class="fa fa-trash"></i>
+								</a>
+							</td>
+						</tr>
+
+						<tr *ngIf="Collection.length === 0">
+							<td colspan="5" class="text-center">
+								<div class="text-danger">ไม่มีข้อมูลรายวิชา! กรุณาเพิ่มรายวิชา</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- Create and upldate form -->
+	<div class="panel panel-default create-update-data" *ngIf="['create', 'update'].indexOf(manageTypes) != -1">
+		<div class="panel-heading">
+			<div class="pull-right">
+				<a class="btn btn-warning" [routerLink]="['/', URL.examination, URL.examination_types]">
+					<i class="fa fa-backward"></i> กลับไปหน้ารายการข้อมูล
+				</a>
+			</div>
+			<div class="title"><span class="fa fa-plus"></span> เพิ่มข้อมูลรายวิชาใหม่</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="panel-body">
+			<form [formGroup]="form" (submit)="onSubmit()">
+				<div class="row">
+					<div class="col-sm-3"></div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="types_name">ชื่อรายวิชา :</label>
+							<input type="text" class="form-control" formControlName="types_name" id="types_name" placeholder="ชื่อรายวิชา">
+							<validation-message [control]="form.controls['types_name']"></validation-message>
+						</div>
+
+						<div class="form-group">
+							<label for="types_name">รายละเอียดรายวิชา :</label>
+							<textarea type="text" class="form-control" formControlName="types_detail" id="types_name" rows="5" placeholder="รายละเอียดรายวิชา"></textarea>
+							<validation-message [control]="form.controls['types_detail']"></validation-message>
+						</div>
+
+						<div class="form-group button text-right">
+							<button type="submit" class="btn btn-primary" [loading]="buttonLoading">
+								<i class="fa fa-save"></i> บันทึกข้อมูล
+							</button>
+							<button type="button" class="btn btn-danger" [routerLink]="['/', URL.examination, URL.examination_types]">
+								<i class="fa fa-remove"></i> ยกเลิก
+							</button>
+						</div>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</section>

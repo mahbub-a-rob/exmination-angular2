@@ -1,0 +1,90 @@
+@import "https://fonts.googleapis.com/css?family=Kanit:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=thai";
+html,
+body {
+    font-family: 'Kanit', sans-serif;
+}
+
+body {
+    padding-bottom: 60px;
+}
+
+body.authenticated {
+    background-color: #eeeeee;
+}
+
+label {
+    font-weight: 300;
+}
+
+.form-control {
+    box-shadow: none;
+}
+
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    font-weight: 200;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    font-weight: 200;
+}
+
+:-ms-input-placeholder {
+    /* IE 10+ */
+    font-weight: 200;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    font-weight: 200;
+}
+
+validation-message {
+    display: block;
+    font-weight: 300;
+    margin-top: 3px;
+    border-radius: 3px;
+    font-size: 13px;
+    padding-left: 3px;
+}
+
+.jconfirm .jconfirm-box div.title-c .title {
+    font-size: 18px;
+}
+
+.jconfirm .text-danger {
+    color: orangered;
+}
+
+.jconfirm .text-warning {
+    color: darkorange;
+}
+
+.jconfirm .text-success {
+    color: #00ff00;
+}
+
+.authenticated h1 {
+    font-size: 26px;
+}
+
+.authenticated h2 {
+    font-size: 20px;
+}
+
+.animation {
+    animation: fade 1.5s;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+}
