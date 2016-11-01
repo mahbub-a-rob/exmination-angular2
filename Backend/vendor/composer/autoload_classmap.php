@@ -7,6 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'database' => $baseDir . '/configs/database.php',
+    'examination_questions' => $baseDir . '/controllers/examination_questions.php',
+    'examination_questions_model' => $baseDir . '/models/examination_questions.php',
     'examination_types' => $baseDir . '/controllers/examination_types.php',
     'examination_types_model' => $baseDir . '/models/examination_types.php',
     'examinations' => $baseDir . '/controllers/examinations.php',

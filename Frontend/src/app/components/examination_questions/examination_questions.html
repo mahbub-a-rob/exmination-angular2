@@ -1,0 +1,48 @@
+<section>
+	<header class="text-center">
+		<h1><span class="fa fa-edit"></span> ระบบข้อสอบออนไลน์</h1>
+		<p class="header-title">
+			| <i class="fa fa-list-ol"></i> ข้อมูลโจทย์ข้อสอบ |
+		</p>
+	</header>
+	<br>
+
+	<div class="panel panel-default" *ngIf="!page">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-sm-7">
+					<div class="title">
+						<span class="fa fa-list"></span> แสดงรายการข้อมูลโจทย์ข้อสอบ
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control">
+                        <option value="">กรุณาเลือกข้อสอบ</option>
+                        <option *ngFor="let item of collections.examinations" [value]="item.exam_id" [innerText]="item.exam_name"></option>
+                    </select>
+				</div>
+				<div class="col-sm-2">
+					<a class="btn btn-primary btn-block">
+						<i class="fa fa-plus"></i> เพิ่มโจทย์ข้อสอบใหม่
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+
+		</div>
+	</div>
+
+	<div class="panel panel-default" *ngIf="page === 'create'">
+		<form>
+			<div class="panel-heading">
+				<div class="title">
+					<span class="fa fa-plus"></span> เพิ่มข้อมูลโจทย์ข้อสอบ
+				</div>
+			</div>
+			<div class="panel-body">
+
+			</div>
+		</form>
+	</div>
+</section>

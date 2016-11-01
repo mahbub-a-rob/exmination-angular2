@@ -60,6 +60,8 @@ class ComposerStaticInit526b831dd1a4ee66ae067632725e7bb6
 
     public static $classMap = array (
         'database' => __DIR__ . '/../..' . '/configs/database.php',
+        'examination_questions' => __DIR__ . '/../..' . '/controllers/examination_questions.php',
+        'examination_questions_model' => __DIR__ . '/../..' . '/models/examination_questions.php',
         'examination_types' => __DIR__ . '/../..' . '/controllers/examination_types.php',
         'examination_types_model' => __DIR__ . '/../..' . '/models/examination_types.php',
         'examinations' => __DIR__ . '/../..' . '/controllers/examinations.php',

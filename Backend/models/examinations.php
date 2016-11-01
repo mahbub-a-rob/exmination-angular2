@@ -27,4 +27,16 @@ class examinations_model extends database {
                 ])->Where('mem_id=? and types_id=?', [$this->mem_id, $this->types_id])->Order('exam_updated', 'DESC')->All();
     }
 
+    public function find() {
+        return $this->Select([
+                    'exam_id',
+                    'exam_name',
+                    'exam_detail',
+                    'exam_choice',
+                    'exam_created',
+                    'exam_updated',
+                    'exam_updated'
+                ])->Where('mem_id=?', [$this->mem_id])->Order('exam_updated', 'DESC')->All();
+    }
+
 }

@@ -33,5 +33,8 @@ $route->post('/examinations', 'examinations:postCreate');
 $route->put('/examinations/{id}', 'examinations:putUpdate');
 $route->delete('/examinations/{id}', 'examinations:deleteRemove');
 
+// router for examination questions
+$route->get('/examination_questions', 'examination_questions:get');
+
 // Run application
 $route->run();

@@ -18,6 +18,7 @@ import { ButtonLoadingDirective } from './directives/button.loading';
 import { ExaminationTypeComponent } from './components/examination_types/examination_types';
 import { StringNullPipe } from './pipes/string-null';
 import { ExaminationsComponent } from './components/examinations/examinations';
+import { ExaminationQeustionComponent } from './components/examination_questions/examination_questions';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ExaminationsComponent } from './components/examinations/examinations';
         DashboardComponent,
         ExaminationTypeComponent,
         ExaminationsComponent,
+        ExaminationQeustionComponent,
         ButtonLoadingDirective,
         StringNullPipe
     ],
@@ -63,6 +65,13 @@ import { ExaminationsComponent } from './components/examinations/examinations';
                             { path: ':types_id', component: ExaminationsComponent, data: { type: 'single' } },
                             { path: ':types_id/' + URL.create, component: ExaminationsComponent, data: { type: 'create' } },
                             { path: ':types_id/' + URL.update + '/:exam_id', component: ExaminationsComponent, data: { type: 'update' } },
+                        ]
+                    },
+                    {
+                        path: URL.examination_questions,
+                        children: [
+                            { path: '', component: ExaminationQeustionComponent },
+                            { path: ':exam_id/' + URL.create, component: ExaminationQeustionComponent, data: { type: 'create' } }
                         ]
                     }
                 ]
