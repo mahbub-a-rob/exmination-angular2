@@ -16,13 +16,15 @@
 					</div>
 				</div>
 				<div class="col-sm-3">
-					<select class="form-control">
-                        <option value="">กรุณาเลือกข้อสอบ</option>
-                        <option *ngFor="let item of collections.examinations" [value]="item.exam_id" [innerText]="item.exam_name"></option>
-                    </select>
+					<div class="form-group">
+						<select class="form-control" id="exam_id" [(ngModel)]="exam_id">
+							<option value="0">กรุณาเลือกข้อสอบ</option>
+							<option *ngFor="let item of collections.examinations" [value]="item.exam_id" [innerText]="item.exam_name"></option>
+                    	</select>
+					</div>
 				</div>
 				<div class="col-sm-2">
-					<a class="btn btn-primary btn-block">
+					<a class="btn btn-primary btn-block" (click)="createForm()">
 						<i class="fa fa-plus"></i> เพิ่มโจทย์ข้อสอบใหม่
 					</a>
 				</div>
@@ -33,16 +35,23 @@
 		</div>
 	</div>
 
-	<div class="panel panel-default" *ngIf="page === 'create'">
-		<form>
-			<div class="panel-heading">
-				<div class="title">
-					<span class="fa fa-plus"></span> เพิ่มข้อมูลโจทย์ข้อสอบ
+	<div class="row" *ngIf="page === 'create'">
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="title">
+						<span class="fa fa-plus"></span> เพิ่มข้อมูลโจทย์ข้อสอบ
+					</div>
 				</div>
-			</div>
-			<div class="panel-body">
+				<form action="">
+					<div class="panel-body">
 
+					</div>
+				</form>
 			</div>
-		</form>
+		</div>
+		<div class="col-md-8"></div>
 	</div>
+
+
 </section>

@@ -16,7 +16,7 @@ class examination_questions {
 
     public function get(Request $request, Response $response) {
         return $response->withJson([
-                    'examinations' => $this->examinations->find()
+            'examinations' => $this->examinations->find()
         ]);
     }
 

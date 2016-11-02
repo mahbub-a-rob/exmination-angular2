@@ -17,8 +17,8 @@ class members {
 
     public function getSingle(Request $req, Response $res, $args) {
         return $res->withJson($this->members->Select(['mem_email', 'mem_status', 'mem_updated', 'mem_created'])
-                                ->Where('mem_token=?', [$args['token']])
-                                ->Single());
+                              ->Where('mem_token=?', [$args['token']])
+                              ->Single());
     }
 
     public function postLogin(Request $req, Response $res) {
@@ -49,18 +49,18 @@ class members {
 
     public function putUpdate(Request $req, Response $res, $args) {
         return $res->withJson([
-                    'code' => 200,
-                    'message' => 'update member controller',
-                    'args' => $args,
-                    'json' => json_decode(file_get_contents('php://input'))
+            'code' => 200,
+            'message' => 'update member controller',
+            'args' => $args,
+            'json' => json_decode(file_get_contents('php://input'))
         ]);
     }
 
     public function deleteRemove(Request $req, Response $res, $args) {
         return $res->withJson([
-                    'code' => 200,
-                    'message' => 'delete member controller',
-                    'args' => $args
+            'code' => 200,
+            'message' => 'delete member controller',
+            'args' => $args
         ]);
     }
 

@@ -8,9 +8,9 @@
  */
 class database {
 
-    const host = 'localhost';
+    const host = '127.0.0.1';
     const username = 'root';
-    const password = '';
+    const password = 'ttvone';
     const database_name = 'examination_db';
     const charset = 'utf8';
 
