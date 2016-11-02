@@ -71,6 +71,7 @@ import { ExaminationQeustionComponent } from './components/examination_questions
                         path: URL.examination_questions,
                         children: [
                             { path: '', component: ExaminationQeustionComponent },
+                            { path: ':exam_id', component: ExaminationQeustionComponent, data: { type: 'list' } },
                             { path: ':exam_id/' + URL.create, component: ExaminationQeustionComponent, data: { type: 'create' } }
                         ]
                     }

@@ -83,7 +83,7 @@
 									<td>{{item.exam_name}}</td>
 									<td>{{item.exam_detail|string_null}}</td>
 									<td>
-										<a href="" class="btn btn-sm btn-warning">
+										<a href="" class="btn btn-sm btn-warning" [routerLink]="['/', URL.examination, URL.examination_questions, item.exam_id]">
 											<i class="fa fa-list-ol"></i> ดูรายการโจทย์ข้อสอบนี้
 										</a>
 									</td>
