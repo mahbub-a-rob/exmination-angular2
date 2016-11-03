@@ -35,7 +35,7 @@
 							<span class="text-warning">"{{examination.exam_name}}"</span>
 						</div>
 						<div class="alert alert-warning">
-							<p>{{examination.exam_detail|string_null:'ไม่มีข้อมูลรายละเอียดข้อสอบ'}}</p>
+							<p>{{examination.exam_detail|string_null:'ไม่มีข้อมูลรายละเอียดข้อสอบ...'}}</p>
 							<small>
 								บันทึกเมื่อ : {{examination.exam_created}},
 								แก้ไขเมื่อ : {{examination.exam_updated}}
@@ -43,13 +43,29 @@
 						</div>
 						<div class="form-group">
 							<label for="question_topic">เพิ่มโจทย์ข้อสอบ :</label>
+							<a (click)="question_detail_link = true" *ngIf="!question_detail_link"><small>เพิ่มรายละเอียด</small></a>
+							<a (click)="question_detail_link = false" *ngIf="question_detail_link"><small>ซ่อนรายละเอียด</small></a>
+
 							<textarea id="question_topic" formControlName="question_topic" rows="3" class="form-control" placeholder="กรุณาระบุโจทย์ข้อสอบของ {{examination.exam_name}}"></textarea>
 							<validation-message [control]="form.controls['question_topic']"></validation-message>
 						</div>
-						<div class="form-group">
-							<textarea id="question_detail" formControlName="question_detail" rows="2" class="form-control" placeholder="รายละเอียดโจทย์ข้อสอบของ {{examination.exam_name}} (ไม่กรอกก็ได้)"></textarea>
+						<div class="form-group" *ngIf="question_detail_link">
+							<textarea id="question_detail" formControlName="question_detail" rows="3" class="form-control" placeholder="รายละเอียดโจทย์ข้อสอบของ {{examination.exam_name}} (ไม่กรอกก็ได้)"></textarea>
 							<validation-message [control]="form.controls['question_detail']"></validation-message>
 						</div>
+
+						<div class="form-group">
+							<label for="">เพิ่มคำตอบข้อสอบ</label>
+							<ul class="choicies">
+								<li *ngFor="let item of choicies">
+									<div class="input-group">
+										<span class="input-group-addon">{{item}}</span>
+										<input type="text" class="form-control" placeholder="เพิ่มคำตอบข้อสอบ {{item}}.">
+									</div>
+								</li>
+							</ul>
+						</div>
+
 						<div class="form-group">
 							<button class="btn btn-primary">
 								<i class="fa fa-save"></i>

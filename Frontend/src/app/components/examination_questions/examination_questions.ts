@@ -5,6 +5,7 @@ import { AlertFactory } from '../../factories/alert.factory';
 import { URL } from '../../factories/URL.factory';
 import { examinations } from '../../services/exminations.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IChoice } from '../../interfaces/choice.interface';
 @Component({
     selector: 'app-examination-question',
     templateUrl: 'examination_questions.html',
@@ -25,6 +26,7 @@ export class ExaminationQeustionComponent {
     form: FormGroup;
     collections: IExamination_questions = new IExamination_questions();
     examination: examinations = new examinations();
+    choicies: Array<string>;
 
     createForm() {
         let router: Array<any> = [this.URL.examination, this.URL.examination_questions];
@@ -56,8 +58,13 @@ export class ExaminationQeustionComponent {
             this.service.get.subscribe(res => {
                 this.collections = res;
                 let examinations = this.collections.examinations.filter(val => val.exam_id == this.exam_id);
-                if (examinations.length > 0)
+                if (examinations.length > 0) {
                     this.examination = examinations[0];
+                    this.choicies = new Array<string>();
+                    for (let i = 0; i < this.examination.exam_choice; i++) {
+                        this.choicies.push(IChoice['th'][i]);
+                    }
+                }
             });
             // form builder
             this.form = this.builder.group({
