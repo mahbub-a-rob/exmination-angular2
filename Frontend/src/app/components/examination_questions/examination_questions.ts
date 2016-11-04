@@ -70,7 +70,8 @@ export class ExaminationQeustionComponent {
             this.form = this.builder.group({
                 question_topic: ['', Validators.required],
                 question_detail: [''],
-                exam_id: this.exam_id
+                exam_id: this.exam_id,
+                answer: [null]
             });
         });
     }
