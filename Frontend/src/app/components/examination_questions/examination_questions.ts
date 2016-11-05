@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExaminationQeustionService, IExamination_questions, examination_questions } from '../../services/examination_questions.service';
 import { AlertFactory } from '../../factories/alert.factory';
@@ -12,14 +12,12 @@ import { IChoice } from '../../interfaces/choice.interface';
     styleUrls: ['examination_questions.less'],
     providers: [ExaminationQeustionService]
 })
-export class ExaminationQeustionComponent {
+export class ExaminationQeustionComponent implements OnInit {
     URL = URL;
     constructor(private route: ActivatedRoute,
         private service: ExaminationQeustionService,
         private router: Router,
-        private builder: FormBuilder) {
-        this.processComponent();
-    }
+        private builder: FormBuilder) { }
 
     page: string = null;
     exam_id: number;
@@ -27,6 +25,11 @@ export class ExaminationQeustionComponent {
     collections: IExamination_questions = new IExamination_questions();
     examination: examinations = new examinations();
     choicies: Array<string>;
+    question_number: number;
+
+    @ViewChild("tbody") tbody: ElementRef;
+
+    ngOnInit() { this.processComponent(); }
 
     createForm() {
         let router: Array<any> = [this.URL.examination, this.URL.examination_questions];
@@ -36,13 +39,18 @@ export class ExaminationQeustionComponent {
     }
 
     onSubmit() {
+        let question_number = this.form.controls['question_number'];
+        let question_topic = this.form.controls['question_topic'];
+        let question_detail = this.form.controls['question_detail'];
+
         if (this.form.valid) {
             let model: examination_questions = this.form.value;
             console.log(model);
         }
         else {
-            this.form.controls['question_topic'].markAsTouched();
-            this.form.controls['question_detail'].markAsTouched();
+            question_number.markAsTouched();
+            question_topic.markAsTouched();
+            question_detail.markAsTouched();
         }
     }
 
@@ -54,6 +62,14 @@ export class ExaminationQeustionComponent {
         this.route.params.forEach(param => {
             // get exam_id
             this.exam_id = param['exam_id'] || 0;
+            // form builder
+            this.form = this.builder.group({
+                question_number: ['', Validators.required],
+                question_topic: ['', Validators.required],
+                question_detail: [''],
+                exam_id: this.exam_id,
+                answer: [null]
+            });
             // get data type
             this.service.get.subscribe(res => {
                 this.collections = res;
@@ -65,13 +81,10 @@ export class ExaminationQeustionComponent {
                         this.choicies.push(IChoice['th'][i]);
                     }
                 }
-            });
-            // form builder
-            this.form = this.builder.group({
-                question_topic: ['', Validators.required],
-                question_detail: [''],
-                exam_id: this.exam_id,
-                answer: [null]
+                let tbody: HTMLTableElement = this.tbody.nativeElement;
+                this.question_number = (tbody.getElementsByTagName('tr').length + 1);
+                // set value default to question_number;
+                this.form.controls['question_number'].setValue(this.question_number);
             });
         });
     }

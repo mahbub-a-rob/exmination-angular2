@@ -39,18 +39,19 @@ export class ValidationComponent {
             this.parent.removeClass('has-success has-error');
             this.parent.find('.form-control-feedback').remove();
             let nodeName = this.parent.find('.form-control').prop('nodeName');
+            let statement = (!this.parent.hasClass('form-inline') && (nodeName === 'INPUT' || nodeName === 'TEXTAREA'))
             // valid
             if (this.control.valid) {
                 this.element.slideUp();
                 this.parent.addClass('has-success');
-                if (nodeName === 'INPUT' || nodeName === 'TEXTAREA')
+                if (statement)
                     this.element.before(`<span class="form-control-feedback ${this.successIcon}"></span>`);
             }
             // invalid
             else {
                 this.element.slideDown();
                 this.parent.addClass('has-error');
-                if (nodeName === 'INPUT' || nodeName === 'TEXTAREA')
+                if (statement)
                     this.element.before(`<span class="form-control-feedback ${this.errorIcon}"></span>`);
             }
             // set new value

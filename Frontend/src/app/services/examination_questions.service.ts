@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 export class examination_questions {
 
+    question_number: number;
     question_id: number;
     question_topic: string;
     question_detail: string;

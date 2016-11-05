@@ -27,7 +27,31 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-8"></div>
+                <div class="col-sm-8">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 100px;">ลำดับ</th>
+                                <th>โจทย์ข้อสอบ</th>
+                                <th>จัดการข้อมูล</th>
+                            </tr>
+                        </thead>
+                        <tbody #tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>ไม่มีข้อมูลรายละเอียดข้อสอบ...บันทึกเมื่อ : 2016-11-02 08:32:45, แก้ไขเมื่อ : 2016-11-02 08:32:45</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-sm">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="col-sm-4">
                     <form *ngIf="exam_id != 0" [formGroup]="form" (submit)="onSubmit()">
                         <div class="form-group subtitle">
@@ -41,14 +65,21 @@
 								แก้ไขเมื่อ : {{examination.exam_updated}}
 							</small>
                         </div>
+
+                        <div class="form-group form-inline">
+                            <label for="question_number">โจทย์ข้อที่ :</label>
+                            <input type="text" class="form-control" formControlName="question_number" id="question_number">
+                            <validation-message [control]="form.controls['question_number']" style="display: inline;"></validation-message>
+                        </div>
+
                         <div class="form-group">
                             <label for="question_topic">เพิ่มโจทย์ข้อสอบ :</label>
                             <a (click)="question_detail_link = true" *ngIf="!question_detail_link"><small>เพิ่มรายละเอียด</small></a>
                             <a (click)="question_detail_link = false" *ngIf="question_detail_link"><small>ซ่อนรายละเอียด</small></a>
-
                             <textarea id="question_topic" formControlName="question_topic" rows="3" class="form-control" placeholder="กรุณาระบุโจทย์ข้อสอบของ {{examination.exam_name}}"></textarea>
                             <validation-message [control]="form.controls['question_topic']"></validation-message>
                         </div>
+
                         <div class="form-group" *ngIf="question_detail_link">
                             <textarea id="question_detail" formControlName="question_detail" rows="3" class="form-control" placeholder="รายละเอียดโจทย์ข้อสอบของ {{examination.exam_name}} (ไม่กรอกก็ได้)"></textarea>
                             <validation-message [control]="form.controls['question_detail']"></validation-message>
