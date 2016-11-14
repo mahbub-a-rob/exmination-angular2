@@ -96,9 +96,11 @@ export class ExaminationsComponent {
         route.data.subscribe(data => {
             this.page = data['type'];
             switch (this.page) {
+                
                 case 'list':
                     this.service.all.subscribe(res => this.collection = res);
                     break;
+
                 case 'single':
                     this.service.allTypes(this.types_id).subscribe(res => {
                         this.collection = res;
@@ -106,6 +108,7 @@ export class ExaminationsComponent {
                         if (examination_type.length) this.exmination_types = examination_type[0];
                     });
                     break;
+
                 case 'create':
                     this.form = build.group({
                         exam_name: ['', Validators.required],
@@ -119,6 +122,7 @@ export class ExaminationsComponent {
                         if (examination_type.length) this.exmination_types = examination_type[0];
                     });
                     break;
+
                 case 'update':
                     this.form = build.group({
                         exam_name: ['', Validators.required],

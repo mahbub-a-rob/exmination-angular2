@@ -1,15 +1,15 @@
 webpackJsonp([1,2],{
 
-/***/ 387:
+/***/ 415:
 /***/ function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(640);
+var content = __webpack_require__(688);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(923)(content, {});
+var update = __webpack_require__(977)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -27,22 +27,22 @@ if(false) {
 
 /***/ },
 
-/***/ 640:
+/***/ 688:
 /***/ function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(641)();
+exports = module.exports = __webpack_require__(689)();
 // imports
-
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Kanit:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=thai);", ""]);
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */", ""]);
+exports.push([module.i, "html,\r\nbody {\r\n    font-family: 'Kanit', sans-serif;\r\n}\r\n\r\nbody {\r\n    padding-bottom: 60px;\r\n}\r\n\r\nbody.authenticated {\r\n    background-color: #eeeeee;\r\n}\r\n\r\nlabel {\r\n    font-weight: 300;\r\n}\r\n\r\n.form-control {\r\n    box-shadow: none;\r\n}\r\n\r\n::-webkit-input-placeholder {\r\n    /* Chrome/Opera/Safari */\r\n    font-weight: 200;\r\n}\r\n\r\n::-moz-placeholder {\r\n    /* Firefox 19+ */\r\n    font-weight: 200;\r\n}\r\n\r\n:-ms-input-placeholder {\r\n    /* IE 10+ */\r\n    font-weight: 200;\r\n}\r\n\r\n:-moz-placeholder {\r\n    /* Firefox 18- */\r\n    font-weight: 200;\r\n}\r\n\r\nvalidation-message {\r\n    display: block;\r\n    font-weight: 300;\r\n    margin-top: 3px;\r\n    border-radius: 3px;\r\n    font-size: 13px;\r\n    padding-left: 3px;\r\n}\r\n\r\n.jconfirm .jconfirm-box div.title-c .title {\r\n    font-size: 18px;\r\n}\r\n\r\n.jconfirm .text-danger {\r\n    color: orangered;\r\n}\r\n\r\n.jconfirm .text-warning {\r\n    color: darkorange;\r\n}\r\n\r\n.jconfirm .text-success {\r\n    color: #00ff00;\r\n}\r\n\r\n.authenticated h1 {\r\n    font-size: 26px;\r\n}\r\n\r\n.authenticated h2 {\r\n    font-size: 20px;\r\n}\r\n\r\n.animation {\r\n    animation: fade 1.5s;\r\n}\r\n\r\n@keyframes fade {\r\n    0% {\r\n        opacity: 0;\r\n    }\r\n    10% {\r\n        opacity: 0;\r\n    }\r\n    30% {\r\n        opacity: 1;\r\n    }\r\n}", ""]);
 
 // exports
 
 
 /***/ },
 
-/***/ 641:
+/***/ 689:
 /***/ function(module, exports) {
 
 /*
@@ -99,7 +99,7 @@ module.exports = function() {
 
 /***/ },
 
-/***/ 923:
+/***/ 977:
 /***/ function(module, exports) {
 
 /*
@@ -352,13 +352,13 @@ function updateLink(linkElement, obj) {
 
 /***/ },
 
-/***/ 926:
+/***/ 980:
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(387);
+module.exports = __webpack_require__(415);
 
 
 /***/ }
 
-},[926]);
+},[980]);
 //# sourceMappingURL=styles.map
