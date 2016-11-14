@@ -9,7 +9,7 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE");
 $route = new \Slim\App();
 
 $route->get('/', function () {
-    print_r(['data'=>200]);
+    require('./dist/index.html');
 });
 
 // route for members
