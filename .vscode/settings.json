@@ -6,6 +6,10 @@
         "**/.hg": true,
         "**/.DS_Store": true,
         "app/**/*.js": true,
-        "**/*.map": true
+        "**/*.map": true,
+        ".gitignore": true,
+        "*.json": true,
+        "systemjs.config.js": true,
+        ".vscode": true
     }
 }
