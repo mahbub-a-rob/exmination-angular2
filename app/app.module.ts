@@ -6,13 +6,15 @@ import { Url } from './factories/url.fac';
 import { HomeComponent } from './components/home.com';
 import { SigninComponent } from './components/signin.com';
 import { SignupComponent } from './components/signup.com';
+import { NavbarComponent } from './components/navbar.com';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         SigninComponent,
-        SignupComponent
+        SignupComponent,
+        NavbarComponent
     ],
     imports: [
         BrowserModule,

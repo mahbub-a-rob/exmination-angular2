@@ -5,8 +5,7 @@
         "**/.svn": true,
         "**/.hg": true,
         "**/.DS_Store": true,
-        "**/*.js": true,
-        "**/*.map": true,
-        "systemjs.config.js": false
+        "app/**/*.js": true,
+        "**/*.map": true
     }
 }

@@ -1,0 +1,33 @@
+.navbar {
+    height: 60px;
+    line-height: 60px;
+    background-color: rgba(255, 255, 255, .8);
+}
+
+.brand {
+    font-size: 20px;
+    text-decoration: none;
+    color: #6C7A89;
+}
+
+.navmenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    float: right;
+}
+
+.navmenu>li {
+    float: left;
+}
+
+.navmenu>li>a {
+    color: #6C7A89;
+    display: block;
+    padding: 0 15px;
+    text-decoration: none;
+}
+
+.navmenu>li:last-child>a {
+    padding-right: 0;
+}
