@@ -1,0 +1,30 @@
+.navbar {
+    height: 60px;
+    line-height: 60px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    .brand {
+        font-size: 20px;
+        text-decoration: none;
+        color: #6C7A89;
+    }
+}
+
+.navmenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    float: right;
+    >li {
+        float: left;
+        >a {
+            color: #6C7A89;
+            display: block;
+            padding: 0 15px;
+            text-decoration: none;
+        }
+        &:last-child>a {
+            padding-right: 0;
+        }
+    }
+}
