@@ -1,14 +1,28 @@
-<div class="row">
-    <div class="col-sm-4"></div>
-    <div class="col-sm-4">
-		<header>
-			<h1></h1>
-		</header>
-        <form action="">
-            <div class="form-group">
-				
-            </div>
-        </form>
+<form [formGroup]="form">
+    <header>
+        <h1 class="header-logo">
+            <span>e</span>xamination<span>o</span>nline
+        </h1>
+    </header>
+
+    <div class="form-group error">
+        <input type="text" class="form-control" formControlName="email" placeholder="อีเมล์" autocomplete="off">
+        <validation [control]="form.controls['email']"></validation>
     </div>
-    <div class="col-sm-4"></div>
-</div>
+
+    <div class="form-group success">
+        <input type="password" class="form-control" formControlName="password" placeholder="รหัสผ่าน">
+        <validation [control]="form.controls['password']"></validation>
+    </div>
+
+    <div class="form-group">
+        <button class="btn">
+            <i class="fa fa-sign-in"></i>
+            เข้าสู่ระบบ
+        </button>
+        <p class="text-center">
+            <span>ถ้าคุณยังไม่ได้ลงทะเบียนกรุณา</span>
+            <a [routerLink]="['/', Url.Signup]">ลงทะเบียน</a>
+        </p>
+    </div>
+</form>

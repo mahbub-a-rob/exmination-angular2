@@ -1,3 +1,15 @@
 {
-	"typescript.tsdk": "./node_modules/typescript/lib"
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "e2e": true,
+        "*.js": true,
+        "*.md": true,
+        ".git*": true,
+        ".edit*": true,
+        "tslint.json": true
+    }
 }

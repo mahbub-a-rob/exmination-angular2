@@ -3,7 +3,6 @@ import { Url } from './factories/url.factory';
 @Component({
 	selector: 'examination-app',
 	template: `
-		<examination-navbar></examination-navbar>
 		<section class="container">
 			<router-outlet></router-outlet>
 		</section>
