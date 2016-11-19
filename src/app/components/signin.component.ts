@@ -3,15 +3,9 @@ import { AuthenticationService as service } from '../services/authentication.ser
 @Component({
 	selector: 'examination-signin',
 	templateUrl: '../views/signin.html',
+	styleUrls: ['../styles/signin.scss'],
 	providers: [service]
 })
 export class SigninComponent {
-	title: string = "Sign in page";
-
-	constructor(private service: service) {
-
-		this.service.onSignin().subscribe();
-
-	}
-
+	constructor(private service: service) { }
 }

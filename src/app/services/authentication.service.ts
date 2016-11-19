@@ -16,3 +16,9 @@ export class SigninModel {
     email: string;
     password: string;
 }
+
+export class SignupModel {
+    name: string;
+    email: string;
+    password: string;
+}

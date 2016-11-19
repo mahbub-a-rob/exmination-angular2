@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Kanit:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=thai');
+html,
+body {
+    font-family: 'Kanit', sans-serif;
+    background-color: #34495E;
+    color: #ffffff;
+}
+
+h1 {
+    font-size: 1.7em;
+    font-weight: 500;
+}
+
+a {
+    color: orangered;
+    &:hover {
+        color: red;
+    }
+}
+
+.form-group {
+    margin-bottom: 10px;
+    label {
+        margin-bottom: 2px;
+        display: inline-block;
+        font-weight: 300;
+    }
+}
+
+.form-control {
+    height: 35px;
+    background-color: #ffffff;
+    border: none;
+    display: block;
+    width: 100%;
+    padding: 0 10px;
+    border-radius: 0;
+    color: #34495E;
+    outline: none;
+}
+
+.btn {
+    height: 35px;
+    line-height: 35px;
+    padding: 0 15px;
+    display: inline-block;
+    border: none;
+    background-color: orangered;
+    &.primary {}
+}
