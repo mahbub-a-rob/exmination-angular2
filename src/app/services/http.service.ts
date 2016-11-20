@@ -8,8 +8,8 @@ declare let $;
 @Injectable()
 export class HttpService {
 
-    domain: string = 'http://localhost:9000';
-    // domain: string = 'http://ttvone.eastasia.cloudapp.azure.com';
+    domain: string = 'http://localhost:9000/';
+    // domain: string = 'http://ttvone.eastasia.cloudapp.azure.com/';
 
     constructor(protected http: Http) { }
 
@@ -57,7 +57,10 @@ export class HttpService {
     protected onError(response: Response): Observable<Response> {
         let errorMessage: any;
         switch (response.status) {
-            case 401:
+            case 401: // authorization error
+                errorMessage = response.json();
+                AlertFactory.alert(response.statusText, errorMessage.Message);
+                break;
             case 405:
                 errorMessage = response.json();
                 AlertFactory.alert(response.statusText, errorMessage.Message);

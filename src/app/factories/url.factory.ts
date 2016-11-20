@@ -1,7 +1,8 @@
 export const Url = {
 	Home: set(''),
-	Signin: set('signin'),
-	Signup: set('signup')
+	Signin: set('เข้าสู่ระบบ'),
+	Signup: set('ลงทะเบียน'),
+	Dashbard: set('แดชบอร์ด')
 };
 
 function set(url) {

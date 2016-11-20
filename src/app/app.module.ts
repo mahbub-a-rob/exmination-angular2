@@ -10,6 +10,8 @@ import { SignupComponent } from './components/signup.component';
 import { Url } from './factories/url.factory';
 import { HttpService } from './services/http.service';
 import { ValidationDirective } from './directives/validation.directive';
+import { DashboardComponent } from './components/dashboard.component';
+import { AuthorizationService, UnAuthorizationService } from './services/authorization.service';
 
 @NgModule({
     declarations: [
@@ -17,6 +19,7 @@ import { ValidationDirective } from './directives/validation.directive';
         HomeComponent,
         SigninComponent,
         SignupComponent,
+        DashboardComponent,
         ValidationDirective
     ],
     imports: [
@@ -27,12 +30,16 @@ import { ValidationDirective } from './directives/validation.directive';
         // For routes
         RouterModule.forRoot([
             { path: Url.Home, redirectTo: Url.Signin, pathMatch: 'full' },
-            { path: Url.Signin, component: SigninComponent },
-            { path: Url.Signup, component: SignupComponent },
+            { path: Url.Signin, component: SigninComponent, canActivate: [UnAuthorizationService] },
+            { path: Url.Signup, component: SignupComponent, canActivate: [UnAuthorizationService] },
+            { path: Url.Dashbard, component: DashboardComponent, canActivate: [AuthorizationService] },
+            { path: '*', redirectTo: Url.Signin, pathMatch: 'full' },
         ])
     ],
     providers: [
-        HttpService
+        HttpService,
+        AuthorizationService,
+        UnAuthorizationService
     ],
     bootstrap: [AppComponent]
 })
