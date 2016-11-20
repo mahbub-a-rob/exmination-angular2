@@ -21,7 +21,7 @@ export class UnAuthorizationService implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         if (!AuthorizationFactory.getAuthorization) return true;
-        this.router.navigate([Url.Dashbard]);
+        this.router.navigate([Url.Dashboard]);
         return false;
     }
 

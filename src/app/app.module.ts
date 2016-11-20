@@ -12,6 +12,8 @@ import { HttpService } from './services/http.service';
 import { ValidationDirective } from './directives/validation.directive';
 import { DashboardComponent } from './components/dashboard.component';
 import { AuthorizationService, UnAuthorizationService } from './services/authorization.service';
+import { SignoutComponent } from './components/signout.component';
+import { SubjectComponent } from './components/subject.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +21,9 @@ import { AuthorizationService, UnAuthorizationService } from './services/authori
         HomeComponent,
         SigninComponent,
         SignupComponent,
+        SignoutComponent,
         DashboardComponent,
+        SubjectComponent,
         ValidationDirective
     ],
     imports: [
@@ -29,10 +33,15 @@ import { AuthorizationService, UnAuthorizationService } from './services/authori
         ReactiveFormsModule,
         // For routes
         RouterModule.forRoot([
-            { path: Url.Home, redirectTo: Url.Signin, pathMatch: 'full' },
+            // UnAuthorizationService
             { path: Url.Signin, component: SigninComponent, canActivate: [UnAuthorizationService] },
             { path: Url.Signup, component: SignupComponent, canActivate: [UnAuthorizationService] },
-            { path: Url.Dashbard, component: DashboardComponent, canActivate: [AuthorizationService] },
+            // AuthorizationService
+            { path: Url.Signout, component: SignoutComponent, canActivate: [AuthorizationService] },
+            { path: Url.Dashboard, component: DashboardComponent, canActivate: [AuthorizationService] },
+            { path: Url.Subject, component: SubjectComponent, canActivate: [AuthorizationService] },
+            // Another path
+            { path: Url.Home, redirectTo: Url.Signin, pathMatch: 'full' },
             { path: '*', redirectTo: Url.Signin, pathMatch: 'full' },
         ])
     ],

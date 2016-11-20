@@ -8,8 +8,6 @@ declare let $;
 })
 export class ValidationDirective implements DoCheck {
     control: FormControl;
-    errorIcon: string = `<i class="fa fa-remove"></i> <span class="fa fa-warning"></span>`;
-    successIcon: string = `<i class="fa fa-check"></i>`;
     jelement: any;
     timeout: any;
     constructor(element: ElementRef) {
@@ -23,11 +21,10 @@ export class ValidationDirective implements DoCheck {
         this.jelement.removeClass('text-danger text-success');
         if (this.control.valid) {
             this.jelement.addClass('text-success');
-            this.jelement.append(`${this.successIcon}`);
         }
         else {
             this.jelement.addClass('text-danger');
-            this.jelement.append(`${this.errorIcon} ${ValidationFactory.getMessage(this.control)}`);
+            this.jelement.append(`<span class="fa fa-warning"></span> ${ValidationFactory.getMessage(this.control)}`);
         }
     }
 

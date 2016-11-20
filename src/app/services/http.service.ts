@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { ResponseFactory } from '../factories/response.factory';
 import { AlertFactory } from '../factories/alert.factory';
+import { Url } from '../factories/url.factory';
+import { AuthorizationFactory } from '../factories/authorization.factory';
 declare let $;
 @Injectable()
 export class HttpService {
@@ -43,7 +45,11 @@ export class HttpService {
 
     protected onMapping(response: Response) {
         try {
-            return response.json();
+            let responseObject: ResponseFactory = response.json();
+            // apply token
+            if (responseObject.Token)
+                AuthorizationFactory.setAuthorization(responseObject.Token);
+            return responseObject;
         }
         catch (e) {
             let responseError = new ResponseFactory();
@@ -58,17 +64,21 @@ export class HttpService {
         let errorMessage: any;
         switch (response.status) {
             case 401: // authorization error
-                errorMessage = response.json();
-                AlertFactory.alert(response.statusText, errorMessage.Message);
+                let pathname = decodeURIComponent(location.pathname);
+                // check signout path url
+                if (pathname.indexOf(Url.Signout) == -1) {
+                    errorMessage = response.json();
+                    AlertFactory.alert('แจ้งเตือนไม่มีสิทธิ์เข้าถึงระบบ', errorMessage.Message);
+                }
                 break;
             case 405:
-                errorMessage = response.json();
-                AlertFactory.alert(response.statusText, errorMessage.Message);
+                AlertFactory.alert('แจ้งเตือนการเข้าถึงข้อมูลไม่ถูกต้อง', response.statusText);
                 break;
             case 500:
+                AlertFactory.alert('แจ้งเตือนเซิร์ฟเวอร์มีปัญหา', response.statusText);
                 break;
-            default:
-                AlertFactory.alert('การเชื่อมต่อขัดข้อง', 'ไม่สามารถเชื่อมต่อกับ Server ได้อาจจะมาจาก Server ได้ทำการปิดปรับปรุงระบบใหม่ให้ทำงานดีขึ้น');
+            case 0:
+                AlertFactory.alert('แจ้งเตือนจากการเชื่อมต่อ', 'ไม่สามารถเชื่อมต่อกับ Server ได้อาจจะมาจาก Server ได้ทำการปิดปรับปรุงระบบใหม่ให้ทำงานดีขึ้น');
                 break;
         }
         return Observable.throw(response);
@@ -76,7 +86,9 @@ export class HttpService {
 
     protected onHeaders() {
         let headers = new Headers();
-        headers.append('content-type', 'application/json');
+        let authorization = AuthorizationFactory.getAuthorization;
+        if (authorization) headers.append('Authorization', authorization);
+        headers.append('Content-Type', 'application/json');
         return headers;
     }
 }

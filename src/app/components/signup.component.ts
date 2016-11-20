@@ -37,13 +37,12 @@ export class SignupComponent {
 		// check form valid
 		if (this.form.valid) {
 			this.disabled = true;
-			this.service.onSignup(this.model).subscribe(res => {
+			this.service.onSignup(this.model).finally(() => this.disabled = false).subscribe(res => {
 				if (res.Code == 200) {
-					this.router.navigate([Url.Dashbard]);
+					this.router.navigate([Url.Dashboard]);
 					return;
 				}
 				else AlertFactory.alert('แจ้งเตือนการลงทะเบียน', res.Message);
-				this.disabled = false;
 			});
 		}
 		// build validator

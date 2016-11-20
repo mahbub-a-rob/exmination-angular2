@@ -2,7 +2,9 @@ export const Url = {
 	Home: set(''),
 	Signin: set('เข้าสู่ระบบ'),
 	Signup: set('ลงทะเบียน'),
-	Dashbard: set('แดชบอร์ด')
+	Signout: set('ออกจากระบบ'),
+	Dashboard: set('แดชบอร์ด'),
+	Subject: set('รายวิชา')
 };
 
 function set(url) {

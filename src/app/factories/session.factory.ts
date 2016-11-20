@@ -4,7 +4,15 @@ export class SessionFactory {
         let name = value;
         try {
             // set date
-            let datetime = new Date(); datetime.setMinutes(datetime.getMinutes() + time)
+            let datetime;
+            if (time !== null) {
+                // set manage time
+                datetime = new Date();
+                datetime.setMinutes(datetime.getMinutes() + time);
+            }
+            else {
+                datetime = null
+            }
             name = JSON.stringify({ time: datetime, data: typeof value === 'object' ? JSON.stringify(value) : value });
         }
         catch (e) { console.log('session error ', e); }
@@ -21,11 +29,14 @@ export class SessionFactory {
         let name = sessionStorage.getItem(key);
         if (name == null) return null;
         let objectData = JSON.parse(name);
-        let datetime = new Date(objectData.time);
-        if (datetime < new Date()) {
-            this.remove(key);
-            return null
-        };
+        // manage time
+        if (objectData.time != null) {
+            let datetime = new Date(objectData.time);
+            if (datetime < new Date()) {
+                this.remove(key);
+                return null
+            };
+        }
         try { name = JSON.parse(objectData.data); }
         catch (e) { name = objectData.data; }
         return name || null;

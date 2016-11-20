@@ -1,0 +1,39 @@
+section {
+    color: gainsboro;
+}
+
+.btn-dark {
+    border: solid 1px cornflowerblue;
+    color: cornflowerblue;
+}
+
+.edit {
+    &,
+    &:hover {
+        color: #ffffff;
+        border-color: cornflowerblue;
+        background: cornflowerblue;
+    }
+}
+
+.delete {
+    &,
+    &:hover {
+        color: #ffffff;
+        background-color: tomato;
+        border: solid 1px tomato;
+    }
+}
+
+h3 {
+    font-weight: 400;
+}
+
+.box {
+    background-color: #1e2c39;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, .5);
+    border: solid 1px cornflowerblue;
+    color: gainsboro;
+    margin-bottom: 20px;
+    text-align: left;
+}

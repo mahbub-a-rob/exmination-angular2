@@ -3,21 +3,32 @@ import { HttpService } from './http.service';
 import { Observable } from 'rxjs/Observable';
 import { ResponseFactory } from '../factories/response.factory';
 import { AuthorizationFactory } from '../factories/authorization.factory';
+import { SessionFactory } from '../factories/session.factory';
 declare var $;
 @Injectable()
 export class AuthenticationService {
     constructor(private http: HttpService) { }
+    url = 'Api/Authentication';
 
-    public onSignin(): Observable<ResponseFactory> {
-        return this.http.requestGet('Api/Authentication').do((res: ResponseFactory) => {
-            if (res.Code == 200) AuthorizationFactory.setAuthorization(res.Token);
+    public onSignin(model: SigninModel): Observable<ResponseFactory> {
+        return this.http.requestPut(this.url, model).do((res: ResponseFactory) => {
+            if (res.Code == 200) this.onPushStorage(res);
         });
     }
 
     public onSignup(model: SignupModel): Observable<ResponseFactory> {
-        return this.http.requestPost('Api/Authentication', model).do((res: ResponseFactory) => {
-            if (res.Code == 200) AuthorizationFactory.setAuthorization(res.Token);
+        return this.http.requestPost(this.url, model).do((res: ResponseFactory) => {
+            if (res.Code == 200) this.onPushStorage(res);
         });
+    }
+
+    public onSignout(): void {
+        this.http.requestDelete(this.url).subscribe();
+    }
+
+    protected onPushStorage(response: ResponseFactory): void {
+        AuthorizationFactory.setAuthorization(response.Token);
+        AuthorizationFactory.setMember(response.Data);
     }
 }
 

@@ -1,0 +1,34 @@
+.box {
+    background-color: #1a2530;
+    text-align: center;
+    border: solid 1px rgba(255, 255, 255, .25);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+    padding: 40px 0;
+    margin-bottom: 20px;
+    &,
+    header {
+        transition: all ease-in-out 0.2s;
+    }
+    header {
+        .fa {
+            font-weight: bold;
+            font-size: 80px;
+        }
+        h3 {
+            font-weight: 400;
+            font-size: 20px;
+        }
+        p {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+    }
+    &:hover {
+        background-color: #17202a;
+        header {
+            color: lightgray !important;
+        }
+    }
+}

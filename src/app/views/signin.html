@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (submit)="onSubmit()">
     <header>
         <h1 class="header-logo">
             <span>e</span>xamination<span>o</span>nline
@@ -16,9 +16,8 @@
     </div>
 
     <div class="form-group">
-        <button class="btn">
-            <i class="fa fa-sign-in"></i>
-            เข้าสู่ระบบ
+        <button class="btn" type="submit" [disabled]="(form.invalid && form.touched) || disabled">
+            <i class="fa fa-sign-in"></i> เข้าสู่ระบบ
         </button>
         <p class="text-center">
             <span>ถ้าคุณยังไม่ได้ลงทะเบียนกรุณา</span>
