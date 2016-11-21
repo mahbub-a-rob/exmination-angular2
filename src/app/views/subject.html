@@ -17,7 +17,11 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn" [disabled]="disabled">
-                        <i class="fa fa-plus"></i> เพิ่มรายวิชาของฉัน
+                        <span *ngIf="!form.controls['id'].value"><i class="fa fa-plus"></i> เพิ่มรายวิชาของฉัน</span>
+                        <span *ngIf="form.controls['id'].value"><i class="fa fa-plus"></i> แก้ไขรายวิชาของฉัน</span>
+                    </button>
+                    <button type="button" class="btn btn-orange" [disabled]="disabled" (click)="form.reset()" *ngIf="form.controls['id'].value">
+                        <i class="fa fa-remove"></i> ยกเลิกการแก้ไข
                     </button>
                 </div>
 
@@ -55,7 +59,7 @@
                             <td>{{item.detail}}</td>
                             <td>{{item.updated}}</td>
                             <td>
-                                <button class="btn btn-dark btn-small edit">
+                                <button class="btn btn-dark btn-small edit" (click)="onUpdate(item)" [disabled]="disabled">
                                     <i class="fa fa-edit"></i>
                                 </button>
                                 <button class="btn btn-dark btn-small delete" (click)="onDelete(item)" [disabled]="disabled">

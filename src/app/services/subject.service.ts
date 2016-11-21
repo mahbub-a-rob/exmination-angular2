@@ -21,8 +21,8 @@ export class SubjectService {
         return this.http.requestPost(this.url, model);
     }
 
-    update(model: SubjectModel): Observable<ResponseFactory> {
-        return this.http.requestPut(this.url, model);
+    update(id: number, model: SubjectModel): Observable<ResponseFactory> {
+        return this.http.requestPut(this.url + '/' + id, model);
     }
 
     delete(id: number): Observable<ResponseFactory> {

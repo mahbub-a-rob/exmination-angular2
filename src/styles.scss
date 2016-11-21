@@ -152,6 +152,12 @@ textarea.form-control {
         padding: 5px 10px;
         line-height: 0;
     }
+    &.btn-orange {
+        background-color: darkorange;
+        &:hover {
+            background-color: #E87F00;
+        }
+    }
 }
 
 .table {

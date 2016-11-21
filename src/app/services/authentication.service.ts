@@ -10,14 +10,14 @@ export class AuthenticationService {
     constructor(private http: HttpService) { }
     url = 'Api/Authentication';
 
-    public onSignin(model: SigninModel): Observable<ResponseFactory> {
-        return this.http.requestPut(this.url, model).do((res: ResponseFactory) => {
+    public onSignup(model: SignupModel): Observable<ResponseFactory> {
+        return this.http.requestPost(this.url, model).do((res: ResponseFactory) => {
             if (res.Code == 200) this.onPushStorage(res);
         });
     }
 
-    public onSignup(model: SignupModel): Observable<ResponseFactory> {
-        return this.http.requestPost(this.url, model).do((res: ResponseFactory) => {
+    public onSignin(model: SigninModel): Observable<ResponseFactory> {
+        return this.http.requestPut(this.url, model).do((res: ResponseFactory) => {
             if (res.Code == 200) this.onPushStorage(res);
         });
     }
