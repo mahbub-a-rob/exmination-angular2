@@ -4,7 +4,8 @@ export const Url = {
 	Signup: set('ลงทะเบียน'),
 	Signout: set('ออกจากระบบ'),
 	Dashboard: set('แดชบอร์ด'),
-	Subject: set('รายวิชา')
+	Subject: set('รายวิชา'),
+	Examination: set('ชุดข้อสอบ')
 };
 
 function set(url) {

@@ -14,6 +14,9 @@ import { DashboardComponent } from './components/dashboard.component';
 import { AuthorizationService, UnAuthorizationService } from './services/authorization.service';
 import { SignoutComponent } from './components/signout.component';
 import { SubjectComponent } from './components/subject.component';
+import { DatePipe, NullTextPipe } from './pipes/apps.pipe';
+import { ExaminationComponent } from './components/examination.component';
+import { SelectDirective } from './directives/apps.directive';
 
 @NgModule({
     declarations: [
@@ -24,7 +27,11 @@ import { SubjectComponent } from './components/subject.component';
         SignoutComponent,
         DashboardComponent,
         SubjectComponent,
-        ValidationDirective
+        ExaminationComponent,
+        ValidationDirective,
+        SelectDirective,
+        DatePipe,
+        NullTextPipe
     ],
     imports: [
         BrowserModule,
@@ -40,6 +47,7 @@ import { SubjectComponent } from './components/subject.component';
             { path: Url.Signout, component: SignoutComponent, canActivate: [AuthorizationService] },
             { path: Url.Dashboard, component: DashboardComponent, canActivate: [AuthorizationService] },
             { path: Url.Subject, component: SubjectComponent, canActivate: [AuthorizationService] },
+            { path: Url.Examination, component: ExaminationComponent, canActivate: [AuthorizationService] },
             // Another path
             { path: Url.Home, redirectTo: Url.Signin, pathMatch: 'full' },
             { path: '*', redirectTo: Url.Signin, pathMatch: 'full' },

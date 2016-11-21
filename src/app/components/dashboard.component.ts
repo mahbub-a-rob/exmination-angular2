@@ -36,7 +36,7 @@ export class DashboardComponent {
             class: null
         },
         {
-            path: Url.Dashboard,
+            path: Url.Examination,
             text: 'ข้อสอบของฉัน',
             detail: 'my examination',
             icon: 'fa-file-text',

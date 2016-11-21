@@ -35,7 +35,7 @@ html,
 body {
     font-family: 'Kanit', sans-serif;
     background-color: #22313F;
-    color: #ffffff;
+    color: gainsboro;
     font-size: 14px;
 }
 
@@ -48,12 +48,22 @@ h1 {
     text-align: center;
 }
 
+.text-right {
+    text-align: right;
+}
+
 .text-danger {
     color: $orange-color;
 }
 
 .text-success {
     color: lawngreen;
+}
+
+.text-small {
+    font-weight: 400;
+    font-size: 12px;
+    margin-bottom: 2px;
 }
 
 a {
@@ -107,11 +117,22 @@ a {
 .form-control {
     background-color: #1a2530;
     border: solid 1px #17202a;
+    box-shadow: 1px 1px 1px rgba(255, 255, 255, .1);
     border-radius: 5px;
     outline: none;
-    box-shadow: 1px 1px 1px rgba(255, 255, 255, .1);
     font-weight: 300;
     @include placeholder(.35);
+}
+
+select.form-control {
+    color: rgba(255, 255, 255, 0.35);
+    padding-left: 10px;
+    &.has-value {
+        color: #ffffff;
+    }
+    option {
+        color: rgba(255, 255, 255, 0.35);
+    }
 }
 
 textarea.form-control {
@@ -158,6 +179,42 @@ textarea.form-control {
             background-color: #E87F00;
         }
     }
+}
+
+.search {
+    margin-bottom: 20px;
+    input {
+        height: 29px;
+        padding: 0 7px;
+        border-radius: 2px;
+        background-color: rgba(255, 255, 255, .6);
+        border: solid 1px rgba(255, 255, 255, .25);
+        box-shadow: 1px 1px 1px rgba(255, 255, 255, .1);
+        color: #22313F;
+    }
+    button {
+        transition: all 0.2s;
+        border: solid 1px rgba(255, 255, 255, .25);
+        background-color: #1a2530;
+        height: 32px;
+        width: 36px;
+        border-radius: 2px;
+        .fa {
+            font-size: 15px;
+        }
+        &:hover {
+            color: gainsboro !important;
+        }
+    }
+}
+
+.box {
+    background-color: #1e2c39;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, .5);
+    border: solid 1px rgba(255, 255, 255, .25);
+    color: gainsboro;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 .table {

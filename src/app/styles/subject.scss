@@ -1,10 +1,7 @@
-section {
-    color: gainsboro;
-}
-
+$main-color: cornflowerblue;
 .btn-dark {
-    border: solid 1px cornflowerblue;
-    color: cornflowerblue;
+    border: solid 1px $main-color;
+    color: $main-color;
 }
 
 .btn-orange {
@@ -15,8 +12,8 @@ section {
     &,
     &:hover {
         color: #ffffff;
-        border-color: cornflowerblue;
-        background: cornflowerblue;
+        border-color: $main-color;
+        background: $main-color;
     }
 }
 
@@ -34,10 +31,15 @@ h3 {
 }
 
 .box {
-    background-color: #1e2c39;
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, .5);
-    border: solid 1px cornflowerblue;
-    color: gainsboro;
-    margin-bottom: 20px;
-    text-align: left;
+    border: solid 1px $main-color;
+}
+
+.search {
+    input {
+        border-color: $main-color;
+    }
+    button {
+        color: $main-color;
+        border-color: $main-color;
+    }
 }

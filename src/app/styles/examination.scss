@@ -1,0 +1,23 @@
+$main-color: darkseagreen;
+.text-small a {
+    color: $main-color;
+}
+
+.btn-dark {
+    border-color: $main-color;
+    color: $main-color;
+}
+
+.search {
+    input {
+        border-color: $main-color;
+    }
+    button {
+        border-color: $main-color;
+        color: $main-color;
+    }
+}
+
+.box {
+    border: solid 1px $main-color;
+}
