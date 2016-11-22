@@ -1,17 +1,14 @@
-import { Directive, ElementRef, Renderer, OnInit } from '@angular/core';
+import { Directive, ElementRef, Renderer, OnInit, DoCheck } from '@angular/core';
 @Directive({
-    selector: 'select[class=form-control]',
-    host: {
-        '(change)': 'onChange($event)'
-    }
+    selector: 'select[class=form-control]'
 })
-export class SelectDirective implements OnInit {
+export class SelectDirective implements OnInit, DoCheck {
 
     constructor(private element: ElementRef, private rander: Renderer) { }
 
     ngOnInit() { this.changeClass(this.element.nativeElement); }
 
-    onChange(event: Event) { this.changeClass(event.currentTarget); }
+    ngDoCheck() { this.changeClass(this.element.nativeElement); }
 
     changeClass(element) {
         let select = <HTMLSelectElement>element;

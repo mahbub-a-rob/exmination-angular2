@@ -21,3 +21,33 @@ $main-color: darkseagreen;
 .box {
     border: solid 1px $main-color;
 }
+
+.edit,
+.delete,
+.add {
+    color: #ffffff !important;
+}
+
+.edit {
+    &,
+    &:hover {
+        border-color: $main-color;
+        background: $main-color;
+    }
+}
+
+.delete {
+    &,
+    &:hover {
+        background-color: tomato;
+        border: solid 1px tomato;
+    }
+}
+
+.add {
+    &,
+    &:hover {
+        background-color: darkturquoise;
+        border: solid 1px darkturquoise;
+    }
+}

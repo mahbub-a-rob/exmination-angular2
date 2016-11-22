@@ -9,9 +9,13 @@ declare let $;
 export class ValidationDirective implements DoCheck {
     control: FormControl;
     jelement: any;
+    jinput: any;
     timeout: any;
+    nodeName: any;
     constructor(element: ElementRef) {
         this.jelement = $(element.nativeElement);
+        this.jinput = this.jelement.prev('.form-control');
+        this.nodeName = this.jinput.prop('nodeName');
         this.jelement.addClass('validation');
     }
 
@@ -24,7 +28,7 @@ export class ValidationDirective implements DoCheck {
         }
         else {
             this.jelement.addClass('text-danger');
-            this.jelement.append(`<span class="fa fa-warning"></span> ${ValidationFactory.getMessage(this.control)}`);
+            this.jelement.append(`<span class="fa fa-warning"></span> ${ValidationFactory.getMessage(this.control, this.nodeName)}`);
         }
     }
 
