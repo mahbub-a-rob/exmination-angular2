@@ -17,6 +17,7 @@ import { SubjectComponent } from './components/subject.component';
 import { DatePipe, NullTextPipe } from './pipes/apps.pipe';
 import { ExaminationComponent } from './components/examination.component';
 import { SelectDirective } from './directives/apps.directive';
+import { QuestionComponent } from './components/question.component';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { SelectDirective } from './directives/apps.directive';
         DashboardComponent,
         SubjectComponent,
         ExaminationComponent,
+        QuestionComponent,
         ValidationDirective,
         SelectDirective,
         DatePipe,
@@ -48,6 +50,14 @@ import { SelectDirective } from './directives/apps.directive';
             { path: Url.Dashboard, component: DashboardComponent, canActivate: [AuthorizationService] },
             { path: Url.Subject, component: SubjectComponent, canActivate: [AuthorizationService] },
             { path: Url.Examination, component: ExaminationComponent, canActivate: [AuthorizationService] },
+            {
+                path: Url.Question,
+                canActivate: [AuthorizationService],
+                children: [
+                    { path: '', redirectTo: '/' + Url.Examination, pathMatch: 'full' },
+                    { path: ':id', component: QuestionComponent }
+                ]
+            },
             // Another path
             { path: Url.Home, redirectTo: Url.Signin, pathMatch: 'full' },
             { path: '*', redirectTo: Url.Signin, pathMatch: 'full' },

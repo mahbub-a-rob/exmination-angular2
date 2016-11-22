@@ -91,7 +91,7 @@
                             <td>{{item.name}}</td>
                             <td>{{subjectName(item)}}</td>
                             <td>
-                                <button class="btn btn-dark btn-small add">
+                                <button class="btn btn-dark btn-small add" [routerLink]="['/', Url.Question, item.id]">
                                     <i class="fa fa-plus"></i>
                                 </button>
                                 <button class="btn btn-dark btn-small edit" (click)="onUpdate(item)">

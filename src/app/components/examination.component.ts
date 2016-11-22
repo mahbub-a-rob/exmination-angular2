@@ -30,6 +30,7 @@ export class ExaminationComponent {
         // get examination data
         this.service.details().subscribe(examinations => this.examinations = examinations);
     }
+
     Url = Url;
     disabled: boolean;
     form: FormGroup;
@@ -43,7 +44,19 @@ export class ExaminationComponent {
             this.disabled = true;
             // update
             if (this.model.id) {
-
+                this.service.update(this.model.id, this.model)
+                    .finally(() => this.disabled = false)
+                    .subscribe(res => {
+                        if (res.Code == 200) {
+                            this.examinations = this.examinations.map(val => {
+                                if (val.id == this.model.id)
+                                    val = res.Data;
+                                return val;
+                            });
+                            this.onReset();
+                        }
+                        else AlertFactory.alert('แจ้งเตือนการแก้ไขข้อสอบ', res.Message);
+                    });
             }
             // create
             else {
@@ -86,15 +99,15 @@ export class ExaminationComponent {
         this.form.controls['subject_id'].setValue(item.subject_id);
     }
 
-    subjectName(item: ExaminationModel): string {
-        let subject = this.subjects.find(value => value.id == item.id);
-        if (!subject) return 'ไม่มีข้อมูล !';
-        return subject.name;
-    }
-
     onReset() {
         this.form.reset();
         this.form.controls['status'].setValue(0);
         this.form.controls['subject_id'].setValue('');
+    }
+
+    subjectName(item: ExaminationModel): string {
+        let subject = this.subjects.find(value => value.id == item.subject_id);
+        if (!subject) return 'ไม่มีข้อมูล !';
+        return subject.name;
     }
 }
