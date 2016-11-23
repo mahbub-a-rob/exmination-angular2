@@ -11,8 +11,8 @@ declare let $;
 export class HttpService {
 
     // domain: string = 'http://localhost:9000/';
-    // domain: string = 'http://ttvone.eastasia.cloudapp.azure.com/';
-    domain: string = 'http://examination.ttvone.com/';
+    domain: string = 'http://ttvone-cloud.eastasia.cloudapp.azure.com/';
+    // domain: string = 'http://examination.ttvone.com/';
     // domain: string = 'http://localhost/';
 
     constructor(protected http: Http) { }
