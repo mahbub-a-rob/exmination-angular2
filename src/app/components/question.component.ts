@@ -30,14 +30,20 @@ export class QuestionComponent {
 			// get questions
 			this.service.details().subscribe(res => this.questions = res);
 			// get subjects
-			this.examinationService.detail(this.subjectID).subscribe(res => this.examination = res);
+			this.examinationService.detailSubject(this.subjectID).subscribe(res => {
+				if (res == null) return;
+				this.examination = res.examination;
+				this.subject = res.subject;
+			});
 		});
 	}
 
 	Url = Url;
 	form: FormGroup;
-	subjectID: number;
+	subjectID: any;
 	questions: Array<QuestionModel> = [];
-	examination: ExaminationModel;
+	examination: ExaminationModel = new ExaminationModel();
+	subject: SubjectModel = new SubjectModel();
 	model: QuestionModel;
+	answerArray: string[] = ['ก', 'ข', 'ค', 'ง'];
 }

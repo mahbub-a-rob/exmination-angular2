@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs/Observable';
 import { ResponseFactory } from '../factories/response.factory';
+import { SubjectModel } from './subject.service';
 
 @Injectable()
 export class ExaminationService {
@@ -15,6 +16,10 @@ export class ExaminationService {
 
     detail(id: number): Observable<ExaminationModel> {
         return this.http.requestGet(this.url + '/' + id);
+    }
+
+    detailSubject(id: number): Observable<ExaminationSubjectModel> {
+        return this.http.requestGet(this.url + `/${id}?subject`);
     }
 
     create(model: ExaminationModel): Observable<ResponseFactory> {
@@ -40,4 +45,9 @@ export class ExaminationModel {
     updated: string;
     subject_id: number;
     member_id: number;
+}
+
+export class ExaminationSubjectModel {
+    examination: ExaminationModel;
+    subject: SubjectModel;
 }

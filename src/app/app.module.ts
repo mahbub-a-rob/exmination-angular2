@@ -14,7 +14,7 @@ import { DashboardComponent } from './components/dashboard.component';
 import { AuthorizationService, UnAuthorizationService } from './services/authorization.service';
 import { SignoutComponent } from './components/signout.component';
 import { SubjectComponent } from './components/subject.component';
-import { DatePipe, NullTextPipe } from './pipes/apps.pipe';
+import { DatePipe, NullTextPipe, ExaminationStatusPipe } from './pipes/apps.pipe';
 import { ExaminationComponent } from './components/examination.component';
 import { SelectDirective } from './directives/apps.directive';
 import { QuestionComponent } from './components/question.component';
@@ -33,7 +33,8 @@ import { QuestionComponent } from './components/question.component';
         ValidationDirective,
         SelectDirective,
         DatePipe,
-        NullTextPipe
+        NullTextPipe,
+        ExaminationStatusPipe
     ],
     imports: [
         BrowserModule,

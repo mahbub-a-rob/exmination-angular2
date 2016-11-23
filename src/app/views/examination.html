@@ -91,8 +91,8 @@
                             <td>{{item.name}}</td>
                             <td>{{subjectName(item)}}</td>
                             <td>
-                                <button class="btn btn-dark btn-small add" [routerLink]="['/', Url.Question, item.id]">
-                                    <i class="fa fa-plus"></i>
+                                <button class="btn btn-dark btn-small add" [routerLink]="['/', Url.Question, item.id]" title="เพิ่มโจทย์ข้อสอบนี้">
+                                    <i class="fa fa-files-o"></i>
                                 </button>
                                 <button class="btn btn-dark btn-small edit" (click)="onUpdate(item)">
                                     <i class="fa fa-edit"></i>

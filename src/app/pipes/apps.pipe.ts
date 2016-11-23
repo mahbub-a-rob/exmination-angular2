@@ -22,3 +22,11 @@ export class NullTextPipe implements PipeTransform {
         return value;
     }
 }
+
+@Pipe({ name: 'examExaminationStatus' })
+export class ExaminationStatusPipe implements PipeTransform {
+    status: string[] = ['สาธารนะ', 'ส่วนตัว', 'สำหรับสมาชิก'];
+    transform(value: number) {
+        return this.status[value];
+    }
+}

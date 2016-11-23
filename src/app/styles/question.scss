@@ -1,0 +1,26 @@
+header {
+    h3 {
+        font-weight: 400;
+        font-size: 16px;
+        margin: 0;
+    }
+    table {
+        margin: 10px 0;
+        td {
+            font-size: 11px;
+            padding: 2px 5px;
+        }
+        tr>td:first-child {
+            text-align: right;
+        }
+    }
+}
+
+.sequence-column {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.add-answer {
+    font-size: 13px;
+}

@@ -10,10 +10,8 @@ declare let $;
 @Injectable()
 export class HttpService {
 
-    // domain: string = 'http://localhost:9000/';
-    domain: string = 'http://ttvone-cloud.eastasia.cloudapp.azure.com/';
-    // domain: string = 'http://examination.ttvone.com/';
-    // domain: string = 'http://localhost/';
+    domain: string = 'http://localhost:9000/';
+    // domain: string = 'http://ttvone-cloud.eastasia.cloudapp.azure.com/';
 
     constructor(protected http: Http) { }
 
