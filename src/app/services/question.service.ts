@@ -17,6 +17,10 @@ export class QuestionService {
 		return this.http.requestGet(this.url + '/' + id);
 	}
 
+	detailExamination(id: number): Observable<QuestionModel[]> {
+		return this.http.requestGet(this.url + '?examination_id=' + id);
+	}
+
 	create(model: QuestionModel): Observable<ResponseFactory> {
 		return this.http.requestPost(this.url, model);
 	}
