@@ -1,3 +1,4 @@
+$main-color: darkkhaki;
 header {
     h3 {
         font-weight: 400;
@@ -7,8 +8,8 @@ header {
     table {
         margin: 10px 0;
         td {
-            font-size: 11px;
-            padding: 2px 5px;
+            font-size: 12px;
+            padding: 2px 7px;
         }
         tr>td:first-child {
             text-align: right;
@@ -23,4 +24,13 @@ header {
 
 .add-answer {
     font-size: 13px;
+}
+
+.btn-dark {
+    border-color: $main-color;
+    color: $main-color;
+}
+
+.input-dark {
+    border-color: $main-color;
 }
