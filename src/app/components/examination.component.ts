@@ -5,6 +5,7 @@ import { SubjectService, SubjectModel } from '../services/subject.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationFactory } from '../factories/validation.factory';
 import { AlertFactory } from '../factories/alert.factory';
+import { choicies } from '../factories/apps.factory';
 
 @Component({
     selector: 'examination-examination',
@@ -22,6 +23,7 @@ export class ExaminationComponent {
             id: [],
             name: ['', Validators.required],
             detail: ['', Validators.maxLength(255)],
+            choice_type: ['', [Validators.required, ValidationFactory.number]],
             status: [0, [Validators.required, ValidationFactory.number]],
             subject_id: ['', [Validators.required, ValidationFactory.number]]
         });
@@ -29,6 +31,8 @@ export class ExaminationComponent {
         this.subjectService.details().subscribe(subjects => this.subjects = subjects);
         // get examination data
         this.service.details().subscribe(examinations => this.examinations = examinations);
+        // process choice list
+        this.choicies.forEach((val, key) => { if (key > 2) this.choicies.splice(key, 1); });
     }
 
     Url = Url;
@@ -37,6 +41,7 @@ export class ExaminationComponent {
     model: ExaminationModel;
     subjects: Array<SubjectModel> = [];
     examinations: Array<ExaminationModel> = [];
+    choicies = choicies;
 
     onSubmit() {
         if (this.form.valid) {
@@ -95,6 +100,7 @@ export class ExaminationComponent {
         this.form.controls['id'].setValue(item.id);
         this.form.controls['name'].setValue(item.name);
         this.form.controls['detail'].setValue(item.detail);
+        this.form.controls['choice_type'].setValue(item.choice_type);
         this.form.controls['status'].setValue(item.status);
         this.form.controls['subject_id'].setValue(item.subject_id);
     }
@@ -103,11 +109,16 @@ export class ExaminationComponent {
         this.form.reset();
         this.form.controls['status'].setValue(0);
         this.form.controls['subject_id'].setValue('');
+        this.form.controls['choice_type'].setValue('');
     }
 
     subjectName(item: ExaminationModel): string {
         let subject = this.subjects.find(value => value.id == item.subject_id);
         if (!subject) return 'ไม่มีข้อมูล !';
         return subject.name;
+    }
+
+    convertChoice(array: string[]) {
+        return array.join(', ');
     }
 }

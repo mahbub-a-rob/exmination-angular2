@@ -40,6 +40,7 @@ export class ExaminationModel {
     number: string;
     name: string;
     detail: string;
+    choice_type: string;
     status: number;
     created: string;
     updated: string;

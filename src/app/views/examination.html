@@ -25,6 +25,14 @@
                 </div>
 
                 <div class="form-group">
+                    <select class="form-control" formControlName="choice_type">
+                        <option value="">กรุณาเลือกชนิดคำตอบ</option>
+                        <option [value]="index" *ngFor="let item of choicies; let index=index">{{convertChoice(item)}}</option>
+                    </select>
+                    <validation [control]="form.controls['choice_type']"></validation>
+                </div>
+
+                <div class="form-group">
                     <select class="form-control" formControlName="status">
                         <option value="0">สาธารนะ</option>
                         <option value="1">ส่วนตัว</option>
