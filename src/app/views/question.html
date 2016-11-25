@@ -1,87 +1,130 @@
-<section>
-    <form [formGroup]="form" (submit)="onSubmit()">
-        <div class="row">
-            <div class="col-sm-4">
-                <header *ngIf="examination.id">
-                    <h3>
-                        <i class="fa fa-file-text"></i> เพิ่มโจทย์ข้อสอบ :
-                        <span class="text-orange">"{{examination.number}}"</span>
-                    </h3>
-                    <table>
-                        <tr>
-                            <td>รายละเอียดข้อสอบ </td>
-                            <td>: <span class="text-success">{{examination.name}}</span></td>
-                        </tr>
-                        <tr>
-                            <td>รายวิชา </td>
-                            <td>: <span class="text-danger">{{subject.name}}</span></td>
-                        </tr>
-                        <tr>
-                            <td>รายละเอียดอื่นๆ </td>
-                            <td>: {{examination.detail | examNullText}}</td>
-                        </tr>
-                        <tr>
-                            <td>บันทึกเมื่อ</td>
-                            <td>: {{examination.created | examDate}}</td>
-                        </tr>
-                        <tr>
-                            <td>แก้ไขเมื่อ</td>
-                            <td>: {{examination.updated | examDate}}</td>
-                        </tr>
-                        <tr>
-                            <td>สถานะข้อสอบ</td>
-                            <td>: {{examination.status | examExaminationStatus}}</td>
-                        </tr>
-                    </table>
-                </header>
+<section *ngIf="examination.id">
+    <div class="row">
+        <div class="col-sm-4">
+            <header>
+                <h3>
+                    <i class="fa fa-file-text"></i> ชุดข้อสอบ :
+                    <span class="text-orange">"{{examination.number}}"</span>
+                </h3>
+                <table>
+                    <tr>
+                        <td>รายละเอียดข้อสอบ </td>
+                        <td>: <span class="text-success">{{examination.name}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>รายวิชา </td>
+                        <td>: <span class="text-danger">{{subject.name}}</span></td>
+                    </tr>
+                    <tr>
+                        <td>รายละเอียดอื่นๆ </td>
+                        <td>: {{examination.detail | examNullText}}</td>
+                    </tr>
+                    <tr>
+                        <td>บันทึกเมื่อ</td>
+                        <td>: {{examination.created | examDate}}</td>
+                    </tr>
+                    <tr>
+                        <td>แก้ไขเมื่อ</td>
+                        <td>: {{examination.updated | examDate}}</td>
+                    </tr>
+                    <tr>
+                        <td>สถานะข้อสอบ</td>
+                        <td>: {{examination.status | examExaminationStatus}}</td>
+                    </tr>
+                </table>
+            </header>
 
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <button class="btn btn-dark" onclick="history.back()" type="button">
-                                <i class="fa fa-reply"></i> ย้อนกลับ
-                            </button>
-                        </div>
-                        <div class="col-sm-6">
-                            <button class="btn btn-dark" [routerLink]="['/', Url.Dashboard]" type="button">
-                                <i class="fa fa-dashboard"></i> กลับไปหน้าหลัก
-                            </button>
-                        </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button class="btn btn-dark" (click)="onGoBack()" type="button"><i class="fa fa-reply"></i> ย้อนกลับ</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-dark" [routerLink]="['/', Url.Dashboard]" type="button"><i class="fa fa-dashboard"></i> กลับไปหน้าหลัก</button>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8">
+        </div>
+
+        <div class="col-sm-8">
+            <div class="table-data" *ngIf="!displayForm">
+                <button class="btn display-form" (click)="displayForm = true" type="button"><i class="fa fa-plus"></i> เพิ่มโจทย์ข้อสอบ</button>
+
+                <form class="search text-right">
+                    ค้นหาโจทย์ข้อสอบ:
+                    <input type="search">
+                    <button><i class="fa fa-search"></i></button>
+                </form>
+
+                <div class="box">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ลำดับ</th>
+                                <th>โจทย์ข้อสอบ</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of questions">
+                                <td>{{item.sequence}}</td>
+                                <td>
+                                    {{item.name}}
+                                    <br>
+                                    <small>วันที่แก้ไขล่าสุด: {{item.updated | examDate}}</small>
+                                </td>
+                                <td>
+                                    <button class="btn btn-dark btn-small edit">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                    <button class="btn btn-dark btn-small delete">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <form [formGroup]="form" (submit)="onSubmit()" *ngIf="displayForm">
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control input-dark" placeholder="โจทย์ข้อที่ {{(questions.length+1)}} (ค่าเริ่มต้น)" formControlName="sequence">
+                        <div class="col-sm-9 title-form">
+                            <i class="fa fa-files-o"></i> เพิ่มโจทย์ข้อสอบ
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" placeholder="โจทย์ข้อที่ {{(questions.length+1)}} (ค่าเริ่มต้น)" formControlName="sequence">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <textarea placeholder="โจทย์ข้อสอบ" class="form-control" rows="5" formControlName="name"></textarea>
+                    <validation [control]="form.controls['name']"></validation>
                 </div>
 
-                <div class="row" *ngFor="let item of form.controls.answers.controls; let index = index" [formGroup]="item">
-                    <div class="col-sm-9">
-                        <div class="form-group">
-                            <textarea rows="1" class="form-control" formControlName="name" placeholder="คำตอบข้อสอบ {{item.value.choice_name}}."></textarea>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>
-                                <input type="radio" name="answer"> คำตอบนี้ถูก
+                <div class="form-group">
+                    <textarea placeholder="รายละเอียดอื่นๆ (ถ้ามี)" class="form-control" rows="2" formControlName="detail"></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6" *ngFor="let groupItem of form.controls.answers.controls; let index = index" [formGroup]="groupItem">
+                        <div class="form-group answer-group">
+                            <textarea rows="1" class="form-control" formControlName="name" placeholder="คำตอบข้อสอบ {{groupItem.value.choice_name}}."></textarea>
+                            <label class="check-icon">
+                                <input type="radio" [checked]="groupItem.controls['answer'].value == 1" formControlName="answer" name="answer" [value]="1" (change)="resetAnswers(groupItem)">
+                                <span class="fa fa-check-square-o" title="คำตอบนี้ถูก"></span>
                             </label>
+                            <validation [control]="groupItem.controls['name']"></validation>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn" [disabled]="disabled"><i class="fa fa-plus"></i> เพิ่มโจทย์ข้อสอบ</button>
+                    <button type="submit" class="btn" [loading]="disabled"><i class="fa fa-plus"></i> เพิ่มโจทย์ข้อสอบ</button>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </section>

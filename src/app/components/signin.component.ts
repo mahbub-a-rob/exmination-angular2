@@ -35,9 +35,7 @@ export class SigninComponent {
 		if (this.form.valid) {
 			this.disabled = true;
 			this.service.onSignin(this.model).finally(() => this.disabled = false).subscribe(res => {
-				if (res.Code == 200) {
-					this.router.navigate([this.returnUrl]);
-				}
+				if (res.Code == 200) { this.router.navigate([this.returnUrl]); }
 				else AlertFactory.alert('แจ้งเตือนการเข้าสู่ระบบ', res.Message);
 			});
 		}

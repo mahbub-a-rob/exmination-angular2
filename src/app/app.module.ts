@@ -18,6 +18,7 @@ import { DatePipe, NullTextPipe, ExaminationStatusPipe } from './pipes/apps.pipe
 import { ExaminationComponent } from './components/examination.component';
 import { SelectDirective } from './directives/apps.directive';
 import { QuestionComponent } from './components/question.component';
+import { LoadingDirective } from './directives/loading.directive';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import { QuestionComponent } from './components/question.component';
         QuestionComponent,
         ValidationDirective,
         SelectDirective,
+        LoadingDirective,
         DatePipe,
         NullTextPipe,
         ExaminationStatusPipe

@@ -1,4 +1,4 @@
-$main-color: darkkhaki;
+$main-color: dodgerblue;
 header {
     h3 {
         font-weight: 400;
@@ -31,6 +31,96 @@ header {
     color: $main-color;
 }
 
-.input-dark {
-    border-color: $main-color;
+.answer-group {
+    position: relative;
+    .check-icon {
+        position: absolute;
+        display: block;
+        top: 9px;
+        left: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        input {
+            display: none;
+        }
+        input+.fa {
+            opacity: .4;
+            &:hover {
+                opacity: .6;
+            }
+        }
+        input:checked+.fa {
+            color: $main-color;
+            opacity: 1;
+        }
+    }
+    .form-control {
+        padding-left: 26px;
+    }
+}
+
+.title-form {
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+.text-color {
+    color: $main-color;
+}
+
+.search {
+    input {
+        border-color: $main-color;
+    }
+    button {
+        border-color: $main-color;
+        color: $main-color;
+    }
+}
+
+.box {
+    border: solid 1px $main-color;
+}
+
+.edit,
+.delete {
+    color: #ffffff !important;
+}
+
+.edit {
+    &,
+    &:hover {
+        border-color: $main-color;
+        background: $main-color;
+    }
+}
+
+.delete {
+    &,
+    &:hover {
+        background-color: tomato;
+        border: solid 1px tomato;
+    }
+}
+
+.display-form {
+    float: left;
+    width: 200px;
+    background-color: $main-color;
+}
+
+.table {
+    tr {
+        th:first-child,
+        td:first-child {
+            text-align: center;
+        }
+        th:last-child,
+        td:last-child {
+            width: 100px;
+        }
+    }
+    small {
+        color: $main-color;
+    }
 }
