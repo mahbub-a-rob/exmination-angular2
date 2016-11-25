@@ -1,4 +1,4 @@
-export const choicies = [
+export const choicies: string[][] = [
 	['ก', 'ข', 'ค', 'ง'],
 	['a', 'b', 'c', 'd'],
 	['A', 'B', 'C', 'D'],
