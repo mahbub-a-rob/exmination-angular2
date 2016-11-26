@@ -60,7 +60,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>ลำดับ</th>
+                                <th>ข้อที่</th>
                                 <th>โจทย์ข้อสอบ</th>
                                 <th>จัดการ</th>
                             </tr>
@@ -74,13 +74,12 @@
                                     <small>วันที่แก้ไขล่าสุด: {{item.updated | examDate}}</small>
                                 </td>
                                 <td>
-                                    <button class="btn btn-dark btn-small edit">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                    <button class="btn btn-dark btn-small delete">
-                                    <i class="fa fa-trash"></i>
-                                </button>
+                                    <button class="btn btn-dark btn-small edit" (click)="onUpdate(item)" [loading]="editDisabled" text=" "><i class="fa fa-edit"></i></button>
+                                    <button class="btn btn-dark btn-small delete" (click)="onDelete(item)" [loading]="deleteDisabled" text=" "><i class="fa fa-trash"></i></button>
                                 </td>
+                            </tr>
+                            <tr *ngIf="questions.length === 0">
+                                <td colspan="3">ไม่มีข้อมูลโจทย์ข้อสอบ !</td>
                             </tr>
                         </tbody>
                     </table>
@@ -94,7 +93,7 @@
                             <i class="fa fa-files-o"></i> เพิ่มโจทย์ข้อสอบ
                         </div>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" placeholder="โจทย์ข้อที่ {{(questions.length+1)}} (ค่าเริ่มต้น)" formControlName="sequence">
+                            <input type="text" class="form-control" placeholder="โจทย์ข้อที่ {{sequence}} (ค่าเริ่มต้น)" formControlName="sequence">
                         </div>
                     </div>
                 </div>

@@ -40,8 +40,11 @@ export class QuestionComponent {
 	subject: SubjectModel = new SubjectModel();
 	model: QuestionModel;
 	answer_model: AnswerRequestModel = new AnswerRequestModel();
+	sequence: number = 1;
 	disabled: boolean;
 	displayForm: boolean = false;
+	deleteDisabled: boolean;
+	editDisabled: boolean;
 
 	onSubmit() {
 		if (this.form.valid) {
@@ -81,6 +84,63 @@ export class QuestionComponent {
 		(<any>this.form.controls['answers']).controls.forEach((group: FormGroup) => group.controls['name'].markAsTouched());
 	}
 
+	onUpdate(item: QuestionModel) {
+		// request to answer server
+		this.editDisabled = true;
+		this.answerService.details(item.id)
+			.finally(() => this.editDisabled = false)
+			.subscribe(answers => {
+				if (answers.length == 0) return;
+				this.form.controls['id'].setValue(item.id);
+				this.form.controls['sequence'].setValue(item.sequence);
+				this.form.controls['name'].setValue(item.name);
+				this.form.controls['detail'].setValue(item.detail);
+				this.form.controls['examination_id'].setValue(item.examination_id);
+
+				this.form.controls['answers'] = this.build.array([]);
+				answers.forEach(answer => {
+					(<FormArray>this.form.controls['answers']).push(this.build.group({
+						id: [answer.id],
+						choice: [answer.choice, [Validators.required, ValidationFactory.number]],
+						name: [answer.name, Validators.required],
+						answer: [answer.answer, [Validators.required, ValidationFactory.number]],
+						choice_name: [choicies[this.examination.choice_type][answer.choice]]
+					}));
+				});
+				this.displayForm = true;
+			});
+	}
+
+	onDelete(item: QuestionModel) {
+		let messageAlert = 'แจ้งเตือนการลบโจทย์ข้อสอบ';
+		AlertFactory.confirm(messageAlert, `คุณต้องการจะลบโจทย์ข้อสอบลำดับที่ ${item.sequence} จริงหรือ?`).then(s => {
+			if (!s) return;
+			// request to answer server
+			this.deleteDisabled = true;
+			this.answerService.delete(item.id)
+				.finally(() => this.deleteDisabled = false)
+				.subscribe(res => {
+					if (res.Code == 200) {
+						// request to question server
+						this.deleteDisabled = true;
+						this.service.delete(item.id)
+							.finally(() => this.deleteDisabled = false)
+							.subscribe(res => {
+								if (res.Code == 200) {
+									// remove data from array question
+									let questionIndex = this.questions.findIndex(val => val.id == item.id);
+									this.questions.splice(questionIndex, 1);
+									this.processSequence();
+								}
+								else AlertFactory.alert(messageAlert, res.Message)
+							});
+					}
+					else AlertFactory.alert('แจ้งเตือนการลบคำตอบ', res.Message)
+				})
+
+		});
+	}
+
 	onReset() {
 		this.processForm();
 		this.processRequest();
@@ -89,7 +149,7 @@ export class QuestionComponent {
 
 	onGoBack() {
 		if (this.displayForm) {
-			this.displayForm = false;
+			this.onReset();
 			return;
 		}
 		history.back();
@@ -104,6 +164,7 @@ export class QuestionComponent {
 
 	private processForm() {
 		this.form = this.build.group({
+			id: [null],
 			sequence: ['', [Validators.required, ValidationFactory.number]],
 			name: [null, Validators.required],
 			detail: [null],
@@ -130,8 +191,8 @@ export class QuestionComponent {
 		// get questions
 		this.service.detailExamination(this.examinationID).subscribe(res => {
 			this.questions = res;
-			this.form.controls['sequence'].setValue(this.questions.length + 1);
 			this.form.controls['examination_id'].setValue(this.examinationID);
+			this.processSequence();
 		});
 	}
 
@@ -141,12 +202,11 @@ export class QuestionComponent {
 			if (res == null) return;
 			this.examination = res.examination;
 			this.subject = res.subject;
-			let answers = (<FormArray>this.form.controls['answers']);
 			// get choice name array
 			let answerArray = choicies[this.examination.choice_type];
 			// apply validator form (answer)
 			answerArray.forEach((ans, index) => {
-				answers.push(this.build.group({
+				(<FormArray>this.form.controls['answers']).push(this.build.group({
 					choice: [index, [Validators.required, ValidationFactory.number]],
 					name: ['', Validators.required],
 					answer: [(index == 0 ? 1 : 0), [Validators.required, ValidationFactory.number]],
@@ -154,5 +214,18 @@ export class QuestionComponent {
 				}));
 			});
 		});
+	}
+
+	private processSequence() {
+		this.sequence = 1;
+		(function process(this_) {
+			this_.questions.forEach(val => {
+				if (val.sequence == this_.sequence) {
+					this_.sequence++;
+					process(this_);
+				}
+				else this_.form.controls['sequence'].setValue(this_.sequence);
+			})
+		})(this);
 	}
 }
