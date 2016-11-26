@@ -4,19 +4,19 @@ export class AuthorizationFactory {
     private static memberStorage = 'memberStorage';
 
     public static get getAuthorization() {
-        return SessionFactory.get(this.authorization);
+        return localStorage.getItem(this.authorization);
     }
 
     public static setAuthorization(value: string) {
-        SessionFactory.set(this.authorization, value, null);
+        localStorage.setItem(this.authorization, value);
     }
 
 
     public static get getMember() {
-        return SessionFactory.get(this.memberStorage);
+        return localStorage.getItem(this.memberStorage);
     }
 
     public static setMember(value: string) {
-        SessionFactory.set(this.memberStorage, value, null);
+        localStorage.setItem(this.memberStorage, JSON.stringify(value));
     }
 }

@@ -10,7 +10,7 @@ import { Url } from '../factories/url.factory';
 export class SignoutComponent {
     constructor(router: Router, service: AuthenticationService) {
         service.onSignout();
-        sessionStorage.clear();
+        localStorage.clear();
         router.navigate([Url.Signin]);
     }
 }

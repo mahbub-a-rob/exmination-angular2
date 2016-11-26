@@ -184,6 +184,9 @@ export class QuestionComponent {
 
 			// get subjects
 			this.requestSubjects();
+
+			// get answers
+			this.requestAnswers();
 		});
 	}
 
@@ -213,6 +216,12 @@ export class QuestionComponent {
 					choice_name: [ans]
 				}));
 			});
+		});
+	}
+
+	private requestAnswers() {
+		this.answerService.detailsByExamination(this.examinationID).subscribe(res => {
+			console.log(res);
 		});
 	}
 

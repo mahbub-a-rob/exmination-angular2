@@ -55,7 +55,7 @@ header {
         }
     }
     .form-control {
-        padding-left: 26px;
+        padding-left: 30px;
     }
 }
 
@@ -114,10 +114,12 @@ header {
         th:first-child,
         td:first-child {
             text-align: center;
+            width: 50px;
         }
         th:last-child,
         td:last-child {
             width: 100px;
+            text-align: right;
         }
     }
     small {
