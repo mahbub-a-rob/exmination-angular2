@@ -3,6 +3,8 @@ import { HttpService } from './http.service';
 import { Observable } from 'rxjs/Observable';
 import { ResponseFactory } from '../factories/response.factory';
 import { SubjectModel } from './subject.service';
+import { QuestionModel } from './question.service';
+import { AnswerModel } from './answer.service';
 
 @Injectable()
 export class ExaminationService {
@@ -18,8 +20,8 @@ export class ExaminationService {
         return this.http.requestGet(this.url + '/' + id);
     }
 
-    detailSubject(id: number): Observable<ExaminationSubjectModel> {
-        return this.http.requestGet(this.url + `/${id}?subject`);
+    detailsFull(examination_id: number): Observable<ExaminaitonFullModel> {
+        return this.http.requestGet(this.url + `?examination_id=${examination_id}`);
     }
 
     create(model: ExaminationModel): Observable<ResponseFactory> {
@@ -48,7 +50,9 @@ export class ExaminationModel {
     member_id: number;
 }
 
-export class ExaminationSubjectModel {
-    examination: ExaminationModel;
+export class ExaminaitonFullModel {
     subject: SubjectModel;
+    examination: ExaminationModel;
+    questions: Array<QuestionModel>
+    answers: Array<AnswerModel>;
 }

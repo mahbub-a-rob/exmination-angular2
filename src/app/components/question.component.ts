@@ -33,18 +33,18 @@ export class QuestionComponent {
 	}
 
 	Url = Url;
-	form: FormGroup;
-	examinationID: any;
-	questions: Array<QuestionModel> = [];
-	examination: ExaminationModel = new ExaminationModel();
 	subject: SubjectModel = new SubjectModel();
+	examination: ExaminationModel = new ExaminationModel();
+	questions: Array<QuestionModel> = [];
+	answers: Array<AnswerModel> = [];
+	examinationID: any;
 	model: QuestionModel;
 	answer_model: AnswerRequestModel = new AnswerRequestModel();
 	sequence: number = 1;
+	form: FormGroup;
 	disabled: boolean;
 	displayForm: boolean = false;
 	deleteDisabled: boolean;
-	editDisabled: boolean;
 
 	onSubmit() {
 		if (this.form.valid) {
@@ -56,28 +56,10 @@ export class QuestionComponent {
 			this.answer_model.answers = (<any>this.model).answers;
 			// remove variable
 			delete (<any>this.model).answers;
-			// request to question server 
-			this.service.create(this.model)
-				.finally(() => this.disabled = false)
-				.subscribe(questionResponse => {
-					if (questionResponse.Code == 200) {
-						// set quetion data to variable
-						let question = <QuestionModel>questionResponse.Data;
-						// set default question_id
-						this.answer_model.question_id = question.id;
-
-						// start loading
-						this.disabled = true;
-						// request to answer server
-						this.answerService.create(this.answer_model)
-							.finally(() => this.disabled = false)
-							.subscribe(answerResponse => {
-								if (answerResponse.Code == 200) this.onReset();
-								else AlertFactory.alert('แจ้งเตือนการเพิ่มคำตอบ', answerResponse.Message);
-							})
-					}
-					else AlertFactory.alert('แจ้งเตือนการเพิ่มโจทย์', questionResponse.Message);
-				});
+			// update data
+			if (this.model.id) this.updateData();
+			// create data
+			else this.createData();
 		}
 		this.form.controls['name'].markAsTouched();
 		this.form.controls['sequence'].markAsTouched();
@@ -85,30 +67,25 @@ export class QuestionComponent {
 	}
 
 	onUpdate(item: QuestionModel) {
-		// request to answer server
-		this.editDisabled = true;
-		this.answerService.details(item.id)
-			.finally(() => this.editDisabled = false)
-			.subscribe(answers => {
-				if (answers.length == 0) return;
-				this.form.controls['id'].setValue(item.id);
-				this.form.controls['sequence'].setValue(item.sequence);
-				this.form.controls['name'].setValue(item.name);
-				this.form.controls['detail'].setValue(item.detail);
-				this.form.controls['examination_id'].setValue(item.examination_id);
-
-				this.form.controls['answers'] = this.build.array([]);
-				answers.forEach(answer => {
-					(<FormArray>this.form.controls['answers']).push(this.build.group({
-						id: [answer.id],
-						choice: [answer.choice, [Validators.required, ValidationFactory.number]],
-						name: [answer.name, Validators.required],
-						answer: [answer.answer, [Validators.required, ValidationFactory.number]],
-						choice_name: [choicies[this.examination.choice_type][answer.choice]]
-					}));
-				});
-				this.displayForm = true;
-			});
+		// apply question
+		this.form.controls['id'].setValue(item.id);
+		this.form.controls['sequence'].setValue(item.sequence);
+		this.form.controls['name'].setValue(item.name);
+		this.form.controls['detail'].setValue(item.detail);
+		this.form.controls['examination_id'].setValue(item.examination_id);
+		// apply answers
+		this.form.controls['answers'] = this.build.array([]);
+		this.answers.filter(m => m.question_id == item.id).forEach(answer => {
+			(<FormArray>this.form.controls['answers']).push(this.build.group({
+				id: [answer.id],
+				choice: [answer.choice, [Validators.required, ValidationFactory.number]],
+				name: [answer.name, Validators.required],
+				answer: [answer.answer, [Validators.required, ValidationFactory.number]],
+				choice_name: [choicies[this.examination.choice_type][answer.choice]]
+			}));
+		});
+		// return to form page
+		this.displayForm = true;
 	}
 
 	onDelete(item: QuestionModel) {
@@ -155,6 +132,7 @@ export class QuestionComponent {
 		history.back();
 	}
 
+	// in checkbox from view page
 	resetAnswers(groupItem: FormGroup) {
 		// reset value of checkbox set default value is 0
 		(<any>this.form.controls['answers']).controls.forEach((group: FormGroup) => {
@@ -178,50 +156,27 @@ export class QuestionComponent {
 		this.route.params.forEach(param => {
 			if (isNaN(param['id'])) { this.router.navigate([Url.Examination]); return; }
 			this.examinationID = param['id'];
+			this.examinationService.detailsFull(this.examinationID).subscribe(res => {
+				this.subject = res.subject;
+				this.examination = res.examination;
+				this.questions = res.questions;
+				this.answers = res.answers;
 
-			// get question
-			this.requestQuetions();
-
-			// get subjects
-			this.requestSubjects();
-
-			// get answers
-			this.requestAnswers();
-		});
-	}
-
-	private requestQuetions() {
-		// get questions
-		this.service.detailExamination(this.examinationID).subscribe(res => {
-			this.questions = res;
-			this.form.controls['examination_id'].setValue(this.examinationID);
-			this.processSequence();
-		});
-	}
-
-	private requestSubjects() {
-		// get subjects
-		this.examinationService.detailSubject(this.examinationID).subscribe(res => {
-			if (res == null) return;
-			this.examination = res.examination;
-			this.subject = res.subject;
-			// get choice name array
-			let answerArray = choicies[this.examination.choice_type];
-			// apply validator form (answer)
-			answerArray.forEach((ans, index) => {
-				(<FormArray>this.form.controls['answers']).push(this.build.group({
-					choice: [index, [Validators.required, ValidationFactory.number]],
-					name: ['', Validators.required],
-					answer: [(index == 0 ? 1 : 0), [Validators.required, ValidationFactory.number]],
-					choice_name: [ans]
-				}));
+				// set form control value
+				this.form.controls['examination_id'].setValue(this.examinationID);
+				// run sequence number of question
+				this.processSequence();
+				// apply validator form (answer)
+				choicies[this.examination.choice_type].forEach((ans, index) => {
+					// set value of answers form control
+					(<FormArray>this.form.controls['answers']).push(this.build.group({
+						choice: [index, [Validators.required, ValidationFactory.number]],
+						name: ['', Validators.required],
+						answer: [(index == 0 ? 1 : 0), [Validators.required, ValidationFactory.number]],
+						choice_name: [ans]
+					}));
+				});
 			});
-		});
-	}
-
-	private requestAnswers() {
-		this.answerService.detailsByExamination(this.examinationID).subscribe(res => {
-			console.log(res);
 		});
 	}
 
@@ -236,5 +191,33 @@ export class QuestionComponent {
 				else this_.form.controls['sequence'].setValue(this_.sequence);
 			})
 		})(this);
+	}
+
+	private createData() {
+		// request to question server 
+		this.service.create(this.model)
+			.finally(() => this.disabled = false)
+			.subscribe(questionResponse => {
+				if (questionResponse.Code == 200) {
+					// set default question_id
+					let question = <QuestionModel>questionResponse.Data;
+					this.answer_model.question_id = question.id;
+
+					// request to answer server
+					this.disabled = true;
+					this.answerService.create(this.answer_model)
+						.finally(() => this.disabled = false)
+						.subscribe(answerResponse => {
+							if (answerResponse.Code == 200) this.onReset();
+							else AlertFactory.alert('แจ้งเตือนการเพิ่มคำตอบ', answerResponse.Message);
+						})
+				}
+				else AlertFactory.alert('แจ้งเตือนการเพิ่มโจทย์', questionResponse.Message);
+			});
+	}
+
+	private updateData() {
+		this.answer_model.question_id = this.model.id;
+		console.log(this.model, this.answer_model);
 	}
 }
